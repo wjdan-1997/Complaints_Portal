@@ -1,6 +1,6 @@
 import React from 'react';
-import {useState } from "react";
-import { Divider, Grid,  styled, Box, Paper, CardContent, CircularProgress, Button, Card, Alert, Container, Typography } from '@mui/material';
+import { useState,useEffect } from "react";
+import { Divider, Grid, styled, Box, Paper, CardContent, CircularProgress, Button, Card, Alert, Container, Typography } from '@mui/material';
 
 import { useNavigate } from "react-router";
 import InputLabel from '@mui/material/InputLabel';
@@ -12,9 +12,8 @@ import { getComplaintInfo, handleUserLogin } from '../../../Core/Component/useLo
 import { useTranslation } from 'react-i18next';
 
 const Compalint = () => {
-    const [t] =useTranslation('common')
+    const [t] = useTranslation('common')
     const navigate = useNavigate();
-  
     const {
         subject,
         severity,
@@ -26,7 +25,6 @@ const Compalint = () => {
         _id
     } = getComplaintInfo()
     const { isAdmin } = handleUserLogin();
-
     const [updateStatus, SetUpdateStatus] = useState('');
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -39,7 +37,7 @@ const Compalint = () => {
     const handleChange = (event) => {
         SetUpdateStatus(event.target.value);
     };
-
+    
     const handleSubmit = () => {
         ApiPutRequest(`complaints/updatestatus/${_id}`, { status: updateStatus })
             .then(response => {
@@ -77,87 +75,90 @@ const Compalint = () => {
         <Container maxWidth='sm'>
             <Card>
                 <CardContent>
-                    <Box sx={{ width: '100%' }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={8}>
-                                <Typography variant="h4" gutterBottom component="div" align="left">{t("all_complaints")}</Typography>
+                    
+                        <Box sx={{ width: '100%' }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={8}>
+                                    <Typography variant="h4" gutterBottom component="div" align="left">{t("all_complaints")}</Typography>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    {
+                                        !isAdmin ? (
+                                            <Grid>
+                                                <Button variant="contained" style={buttonStyle} size="small" onClick={() => handleEdit()}>{t("edit")}</Button>
+                                                <Button variant="contained" style={buttonStyle} color="error" size="small" onClick={() => handleDelete(_id)}>{t("delete")}</Button>
+                                            </Grid>
+                                        ) : (
+                                            ''
+                                        )
+                                    }
+                                </Grid>
                             </Grid>
-                            <Grid item xs={4}>
-                                {
-                                    !isAdmin ? (
-                                        <Grid>
-                                            <Button variant="contained" style={buttonStyle} size="small" onClick={() => handleEdit()}>{t("edit")}</Button>
-                                            <Button variant="contained" style={buttonStyle} color="error" size="small" onClick={() => handleDelete(_id)}>{t("delete")}</Button>
-                                        </Grid>
-                                    ) : (
-                                        ''
-                                    )
-                                }
-                            </Grid>
-                        </Grid>
 
-                        <Divider />
-                        <br /><br />
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid item xs={6}>
-                                <Grid>
-                                    <Typography justify="center" component="h3">
-                                        {t("subject")}
-                                    </Typography>
-                                    <Item>{subject}</Item>
-                                </Grid>
+                            <Divider />
+                            <br /><br />
+                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={6}>
+                                    <Grid>
+                                        <Typography justify="center" component="h3">
+                                            {t("subject")}
+                                        </Typography>
+                                        <Item>{subject}</Item>
+                                    </Grid>
 
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Grid>
-                                    <Typography justify="center" component="h3">
-                                        {t("status")}
-                                    </Typography>
-                                    <Item>{status}</Item>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid>
+                                        <Typography justify="center" component="h3">
+                                            {t("status")}
+                                        </Typography>
+                                        <Item>{status}</Item>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid>
+                                        <Typography justify="center" component="h3">
+                                            {t("complaint_id")}
+                                        </Typography>
+                                        <Item>{_id}</Item>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid>
+                                        <Typography justify="center" component="h3">
+                                            {t("severity")}
+                                        </Typography>
+                                        <Item>{severity}</Item>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid>
+                                        <Typography justify="center" component="h3">
+                                            {t("complaint_type")}
+                                        </Typography>
+                                        <Item>{complainType}</Item>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid>
+                                        <Typography justify="center" component="h3">
+                                            {t("opened_by")}
+                                        </Typography>
+                                        <Item>{openedBy}</Item>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid>
+                                        <Typography justify="center" component="h3">
+                                            {t("details")}
+                                        </Typography>
+                                        <Item>{description}</Item>
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={6}>
-                                <Grid>
-                                    <Typography justify="center" component="h3">
-                                        {t("complaint_id")}
-                                    </Typography>
-                                    <Item>{_id}</Item>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Grid>
-                                    <Typography justify="center" component="h3">
-                                        {t("severity")}
-                                    </Typography>
-                                    <Item>{severity}</Item>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Grid>
-                                    <Typography justify="center" component="h3">
-                                       {t("complaint_type")}
-                                    </Typography>
-                                    <Item>{complainType}</Item>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Grid>
-                                    <Typography justify="center" component="h3">
-                                        {t("opened_by")}
-                                    </Typography>
-                                    <Item>{openedBy}</Item>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Grid>
-                                    <Typography justify="center" component="h3">
-                                        {t("details")}
-                                    </Typography>
-                                    <Item>{description}</Item>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Box>
+                        </Box>
+                   
+
 
                 </CardContent>
                 <Divider />

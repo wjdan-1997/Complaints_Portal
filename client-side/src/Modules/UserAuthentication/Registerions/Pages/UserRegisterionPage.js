@@ -101,7 +101,7 @@ const CustomerRegisterion = () => {
                                                     fullWidth
                                                 />
                                             </Grid>
-                                            <Grid item md={12} xs={12}>
+                                            <Grid item  xs={12}>
                                                 <Field
                                                     label={t("education")}
                                                     name="education"

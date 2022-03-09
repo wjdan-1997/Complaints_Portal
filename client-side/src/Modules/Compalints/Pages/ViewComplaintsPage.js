@@ -45,7 +45,6 @@ const ViewComplaints = () => {
     }
 
     const propStyle = { padding: '15px 15px' }
-    console.log("complinat user login",isUserLogin);
     return (
         <Container maxWidth='lg' style={propStyle}>
             <Typography variant="h6" gutterBottom component="div" align="left"> Hello  {isUserLogin} </Typography>

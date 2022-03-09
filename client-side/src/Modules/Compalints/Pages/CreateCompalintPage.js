@@ -21,8 +21,10 @@ const CreateCompalint = () => {
 
 
     const onSubmit = async (values) => {
+        setIsLoading(true)
         setErrMessage("")
         if (location?.state?.editForm) {
+            setIsLoading(true)
             await ApiPutRequest(`complaints/${location.state.id}`,
                 {
                     subject: values.subject,
@@ -31,11 +33,13 @@ const CreateCompalint = () => {
                     complainType: values.complainType,
                     severity: values.severity,
                 })
+            setIsLoading(false)
             navigate('/')
         } else {
             const response = await CreateCompalintApi(values)
             if (!response.isSuccessful) {
                 setErrMessage(`${response.errorMessage}`)
+                setIsLoading(true)
             }
             navigate('/')
         }
@@ -48,7 +52,7 @@ const CreateCompalint = () => {
         }
         if (!values.description) {
             msg.description = 'This field required'
-        } 
+        }
         if (!values.severity) {
             msg.severity = 'This field required'
         }
