@@ -1,12 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from "react";
-import { Divider, Grid, Typography, Alert, Link, CardContent, CircularProgress, Button, Card, Container } from '@mui/material';
+import { Divider, Box, Grid, Typography, Alert, Link, CardContent, CircularProgress, Button, Card, Container } from '@mui/material';
 import { Field, Form } from 'react-final-form';
 import { TextField } from 'final-form-material-ui';
 import { useTranslation } from "react-i18next";
 import UserLoginApi from "../Api/UserLoginApi";
 import { useNavigate } from "react-router-dom";
-import { setUserLogin,setAuthToken } from '../../../../Core/Component/useLocalStorage';
+import { setCurrentUser, setAuthToken } from '../../../../Core/Component/useLocalStorage';
 import axios from 'axios';
 
 const Login = () => {
@@ -27,8 +27,7 @@ const Login = () => {
         } else {
             const token = response?.data?.token;
             localStorage.setItem("token", token)
-            //setAuthToken(token)
-            setUserLogin(token)
+            setCurrentUser(token)
             console.log('now set the user');
             navigate('/')
         }
@@ -45,94 +44,119 @@ const Login = () => {
 
         return msg
     }
-    const propStyle = { padding: '15px 15px', width: 500, margin: 'auto' }
     return (
-        <Container maxWidth='sm' style={propStyle}>
-            <Card>
-                <Typography variant="h6" gutterBottom component="div" align="center">{t('login')}</Typography>
-                <Divider />
-                {errMessage && (
-                    <Alert variant="outlined" severity="error">
-                        {errMessage}
-                    </Alert>
-                )}
-                <CardContent>
-                    {!isLoading ? (
-                        <>
-                            <Form
-                                onSubmit={onSubmit}
-                                validate={validate}
-                                render={({ handleSubmit, submitting, pristine, values }) => (
-                                    <form onSubmit={handleSubmit}>
-                                        <Grid container spacing={3} mt={3}>
-                                            <Grid item md={12} xs={12} >
-                                                <Field
-                                                    label={t("email")}
-                                                    name="email"
-                                                    component={TextField}
-                                                    type="text"
-                                                    fullWidth
-                                                />
+        <Box
+            sx={{
+                backgroundColor: '#fafafa',
+                width: 'auto',
+                height: "auto",
+                backgroundSize: "cover"
+            }}
+        >
+            <Container
+                maxWidth="sm"
+                sx={{
+
+
+                    paddingRight: 3,
+                    paddingLeft: 3,
+
+                }}
+            >
+                <Box sx={{
+                    mt: '2%',
+                    backgroundColor: 'white',
+                    borderRadius: 5,
+                    paddingRight: 3,
+                    paddingLeft: 3,
+                    boxShadow: '5px 10px 18px #ecf1f5'
+                }}>
+
+                    <Box sx={{ mb: 3, textAlign: 'center', paddingTop: '55px', margin: '0px' }}>
+                        <Typography variant="h6" gutterBottom component="div" align="center">{t('login')}</Typography>
+
+                    </Box>
+                    <CardContent sx={{ padding: "30px", paddingTop: '0' }}>
+                        {errMessage && (
+                            <Alert variant="outlined" severity="error">
+                                {errMessage}
+                            </Alert>
+                        )}
+                        {!isLoading ? (
+                            <>
+                                <Form
+                                    onSubmit={onSubmit}
+                                    validate={validate}
+                                    render={({ handleSubmit, submitting, pristine, values }) => (
+                                        <form onSubmit={handleSubmit}>
+                                            <Grid container spacing={3} mt={3}>
+                                                <Grid item md={12} xs={12} >
+                                                    <Field
+                                                        label={t("email")}
+                                                        name="email"
+                                                        component={TextField}
+                                                        type="text"
+                                                        fullWidth
+                                                    />
+
+                                                </Grid>
+                                                <Grid item md={12} xs={12} >
+                                                    <Field
+                                                        label={t("password")}
+                                                        name="password"
+                                                        component={TextField}
+                                                        type="password"
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                            <br />
+                                            <Grid item md={12} xs={12}>
+                                                <Button
+                                                    disabled={submitting || pristine}
+                                                    variant="contained"
+                                                    color="secondary"
+                                                    type="submit"
+                                                    sx={{
+                                                        borderRadius: '5em',
+                                                        width: '100%',
+                                                        margin: '0 auto',
+                                                        backgroundColor: '#9c27b0'
+                                                    }}
+                                                >
+                                                    {t("login")}
+                                                </Button>
 
                                             </Grid>
-                                            <Grid item md={12} xs={12} >
-                                                <Field
-                                                    label={t("password")}
-                                                    name="password"
-                                                    component={TextField}
-                                                    type="password"
-                                                    fullWidth
-                                                />
+                                            <br />
+                                            <Grid item md={12} xs={12}>
+                                                <Typography> {t('not_registered')}
+                                                    <Link color='secondary' underline='none' href="signup"> {t("create_Customer_Account")}</Link>
+                                                </Typography>
                                             </Grid>
-                                        </Grid>
-                                        <br />
-                                        <Grid item md={12} xs={12}>
-                                            <Button
-                                                disabled={submitting || pristine}
-                                                variant="contained"
-                                                color="secondary"
-                                                type="submit"
-                                                sx={{
-                                                    borderRadius: '5em',
-                                                    width: '100%',
-                                                    margin: '0 auto',
-                                                    backgroundColor: '#9c27b0'
-                                                }}
-                                            >
-                                                {t("login")}
-                                            </Button>
+                                            <pre>{JSON.stringify(values, 0, 2)}</pre>
+                                        </form>
+                                    )}
+                                />
 
-                                        </Grid>
-                                        <br />
-                                        <Grid item md={12} xs={12}>
-                                            <Typography> {t('not_registered')}
-                                                <Link color='secondary' underline='none' href="signup"> {t("create_Customer_Account")}</Link>
-                                                <br />
-                                                <Link color='secondary' underline='none' href="signupAdmin">{t("create_Admin_Account")}</Link>
-                                            </Typography>
-                                        </Grid>
-                                        <pre>{JSON.stringify(values, 0, 2)}</pre>
-                                    </form>
-                                )}
+                            </>
+                        ) : (
+                            <CircularProgress
+                                size="15rem"
+                                style={{
+                                    display: 'block',
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto',
+                                    color: '#E2E8EB'
+                                }}
                             />
+                        )}
 
-                        </>
-                    ) : (
-                        <CircularProgress
-                            size="15rem"
-                            style={{
-                                display: 'block',
-                                marginLeft: 'auto',
-                                marginRight: 'auto',
-                                color: '#E2E8EB'
-                            }}
-                        />
-                    )}
+                    </CardContent>
+                </Box>
+            </Container>
+        </Box>
 
-                </CardContent>
-
-            </Card>
-        </Container>
 
 
 

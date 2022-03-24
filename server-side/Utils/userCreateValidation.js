@@ -1,10 +1,10 @@
 const Validator = require("validator");
 const isEmpty = require("is-empty"); 
 
-const userValidationRegister = (data) => {  
+const userCreateValidation = (data) => {  
     var msg = {};
 
-    console.log("data:", data);
+    // console.log("data:", data);
 
 
     if (isEmpty(data.name)) {
@@ -15,10 +15,10 @@ const userValidationRegister = (data) => {
     } else if (!Validator.isEmail(data.email)) {
         msg = "Email is invalid";
     }
-    if (isEmpty(data.passwordReceived)) {
+    if (isEmpty(data.password)) {
         msg = "Password field is required";
     }
-    if (!Validator.isLength(data.passwordReceived, { min: 6, max: 30 })) {
+    if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
         msg = "Password must be at least 6 characters";
     }
     if (isEmpty(data.phoneNumber)) {
@@ -39,4 +39,4 @@ const userValidationRegister = (data) => {
     };
 };
 
-module.exports = userValidationRegister;
+module.exports = userCreateValidation;

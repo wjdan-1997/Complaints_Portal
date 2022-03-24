@@ -1,7 +1,7 @@
 const Validator = require("validator");
-const isEmpty = require("is-empty"); 
+const isEmpty = require("is-empty");
 
-const adminRegisterValidation = (data) => {
+const userUpdatedValidation = (data) => {
     var msg = {};
 
     if (isEmpty(data.name)) {
@@ -14,17 +14,21 @@ const adminRegisterValidation = (data) => {
         msg = "Email is invalid";
     }
 
-    if (isEmpty(data.passwordReceived)) {
-        msg = "Password field is required";
-    }
-
     if (isEmpty(data.phoneNumber)) {
         msg = "Phone number field is required";
     }
-
+    if (isEmpty(data.education)) {
+        msg = "Education field is required";
+    }
+    if (isEmpty(data.gender)) {
+        msg = "Gender field is required";
+    }
+    if (isEmpty(data.address)) {
+        msg = " Address field is required";
+    }
     return {
         msg,
         isValid: isEmpty(msg)
     };
 };
-module.exports = adminRegisterValidation;
+module.exports = userUpdatedValidation;

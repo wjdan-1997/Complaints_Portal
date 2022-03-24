@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 
-const handleUserLogin = () => {
+const getCurrentUser = () => {
     const loggedInUser = localStorage.getItem("currentUser");
     if (loggedInUser) {
         const foundUser = JSON.parse(loggedInUser);
@@ -12,12 +12,13 @@ const handleUserLogin = () => {
     return { name: "", email: "" };
 };
 
-const setUserLogin = (token) => {
+const setCurrentUser = (token) => {
     const decode = jwt_decode(token)
     localStorage.setItem("currentUser", JSON.stringify(decode));
 };
-
-
+const getUsersInfo = () =>{
+    
+}
 
 const setComplaintInfo = (values) => {
     localStorage.setItem("complaintInfo", JSON.stringify(values));
@@ -30,9 +31,10 @@ const userLogout = () => {
     localStorage.clear();
 };
 export {
-    setUserLogin,
+    setCurrentUser,
     setComplaintInfo,
     getComplaintInfo,
     userLogout,
-    handleUserLogin
+    getCurrentUser
 };
+    

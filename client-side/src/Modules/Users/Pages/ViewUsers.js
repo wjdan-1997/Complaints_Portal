@@ -12,38 +12,42 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import { useNavigate } from 'react-router-dom';
-import { ApiGetRequest } from '../../../Core/API/ApiRequest'
-import { getCurrentUser, setComplaintInfo } from '../../../Core/Component/useLocalStorage';
 import { useTranslation } from 'react-i18next';
+import { getCurrentUser } from '../../../Core/Component/useLocalStorage';
+import { ApiDeleteRequest, ApiGetRequest } from '../../../Core/API/ApiRequest';
 
-const ViewComplaints = () => {
+const ViewUsers = () => {
     const [t] = useTranslation('common')
     const isUserLogin = getCurrentUser().name;
     const navigate = useNavigate()
-    const [complaints, setComplaints] = useState('')
+    const [users, setUsers] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(async () => {
-        setIsLoading(true)
-        const response = await ApiGetRequest('complaints')
+        const response = await ApiGetRequest('users/getUsers')
         if (!response.isSuccessful) {
             setIsLoading(true)
-            console.log('component is not initialing...');
+            console.log('users is not found...');
 
         } else {
-            setComplaints(response?.data?.responseBody)
+            setUsers(response?.data?.responseBody)
+            console.log('users======', users);
             setIsLoading(false)
         }
     }, []);
-
-    const handleComplaint = async (id) => {
-        const response = await ApiGetRequest(`complaints/${id}`)
-        ApiGetRequest(`complaints/${id}`)
-        setComplaintInfo(response.data.responseBody)
-
-        navigate('/complaint')
+        console.log('users list',users);
+    const handleEdit = (id) => {
+        navigate('/editProfile', { state: { editFormInUser: true,id:id } })
     }
 
+    const handleDelete = (id) => {
+        ApiDeleteRequest(`users/${id}`)
+            .then(response => {
+                const updatedUser = users.filter(e => e._id != id);
+                setUsers(updatedUser)
+            })
+        navigate('/users')
+    }
     const propStyle = { padding: '15px 15px' }
     return (
         <Container maxWidth='lg' style={propStyle}>
@@ -52,8 +56,11 @@ const ViewComplaints = () => {
 
 
             <Card>
-                <Typography variant="h2" gutterBottom component="div" align="center">{t("all_complaints")} </Typography>
+                <Typography variant="h2" gutterBottom component="div" align="center">{t("user_management")} </Typography>
+                <Typography variant="h5" gutterBottom component="div" align="center">{t("control_your_users")} </Typography>
 
+                <Divider />
+                <Button variant="text" color="secondary" style={{ textTransform: 'none' }} onClick={() => navigate('/newUser')}>{t('add_new_user')}</Button>
                 <Divider />
                 <CardContent>
                     {!isLoading ? (
@@ -62,37 +69,37 @@ const ViewComplaints = () => {
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="center">{t("subject")}</TableCell>
-                                        <TableCell align="center">{t("complaint_type")}</TableCell>
-                                        <TableCell align="center">{t("complaint_id")} </TableCell>
-                                        <TableCell align="center">{t("severity")}</TableCell>
-                                        <TableCell align="center">{t("status")}</TableCell>
+                                        <TableCell align="center">{t("name")}</TableCell>
+                                        <TableCell align="center">{t("email")}</TableCell>
+                                        <TableCell align="center">{t("role")} </TableCell>
+                                        <TableCell align="center"> </TableCell>
+                                        <TableCell align="center"> </TableCell>
+
+
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
 
-                                    {complaints && complaints != 0?
-                                        complaints?.map((row) => (
+                                    {users && users != 0 ?
+                                        users?.map((row) => (
 
-                                            <TableRow key={row?.complaintId}>
+                                            <TableRow key={row?._id}>
+                                                <TableCell align="center">{row?.name}  </TableCell>
+
+                                                <TableCell align="center" >{row?.email}</TableCell>
                                                 <TableCell align="center">
-                                                    <Button variant="text" color="secondary" style={{textTransform: 'none'}} onClick={() => handleComplaint(row?._id)}>{row?.subject}</Button>
+                                                    {row?.role}
                                                 </TableCell>
-                                                <TableCell align="center" >{row?.complainType}</TableCell>
-                                                <TableCell align="center">
-                                                    <Button variant="text" color="secondary" style={{textTransform: 'none'}} onClick={() => handleComplaint(row?._id)}>{row?._id}</Button>
-                                                </TableCell>
-                                                <TableCell align="center">{row?.severity}</TableCell>
-                                                <TableCell align="center">{row?.status}</TableCell>
                                                 <TableCell>
-
+                                                    <Button variant="text" color="secondary" style={{ textTransform: 'none' }} onClick={() => handleEdit(row?._id)}>{t('edit')}</Button>
+                                                    <Button variant="text" color="secondary" style={{ textTransform: 'none' }} onClick={() => handleDelete(row?._id)}>{t('delete')}</Button>
                                                 </TableCell>
                                             </TableRow>
                                         ))
                                         :
                                         (
                                             <TableRow key="1">
-                                                <TableCell align="center" colSpan="5">{t("warning")}</TableCell>
+                                                <TableCell align="center" colSpan="5">{t("no_users")}</TableCell>
                                             </TableRow>
                                         )
                                     }
@@ -119,4 +126,4 @@ const ViewComplaints = () => {
     );
 }
 
-export default ViewComplaints;
+export default ViewUsers;

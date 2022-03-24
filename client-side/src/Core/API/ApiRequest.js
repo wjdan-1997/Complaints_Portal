@@ -55,13 +55,13 @@ const GetResponse = async (requestPromise) => {
     try {
         const apiResponse = await requestPromise;
         response.data = { ...apiResponse.data };
-        // console.log(`responseBody ${JSON.stringify(response.data)}`);
+        console.log(`responseBody ${JSON.stringify(response.data)}`);
 
     } catch (err) {
         response.isSuccessful = false;
         if (err.response?.data?.errorMessage) {
             response.errorMessage = err.response.data.errorMessage;
-            // console.log(`err.message ${response.errorMessage}`);
+            console.log(`err.message ${response.errorMessage}`);
         }
     }
     return response;

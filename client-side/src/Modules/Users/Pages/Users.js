@@ -1,84 +1,45 @@
 import React from 'react';
-import { useState } from "react";
-import { Divider, Box, Grid, Typography, CardContent, CircularProgress, Button, Card, Alert, Container, FormHelperText, MenuItem, FormControl, FormControlLabel, RadioGroup, FormLabel } from '@mui/material';
-import { TextField, Radio, Select } from 'final-form-material-ui';
+import { useEffect, useState } from "react";
+import { Divider, Box, Grid, CardHeader, CardContent, CircularProgress, Button, Card, FormControl, Alert, Container, FormHelperText, Typography, MenuItem, RadioGroup, FormControlLabel, FormLabel } from '@mui/material';
+import { TextField, Select, Radio } from 'final-form-material-ui';
+import { TextField as TextFieldFinal } from 'final-form-material-ui';
 import { useNavigate, useLocation } from "react-router";
 import { Field, Form } from 'react-final-form';
-import CheckBoxField from '../../../Core/Component/CheckBox';
-import CreateCompalintApi from '../Api/CreateComplaintApi';
-import { ApiPutRequest } from '../../../Core/API/ApiRequest';
+
+
+
+import CheckBoxField from '../../../Core/Component/CheckBox'
 import { useTranslation } from 'react-i18next';
-
-
-const CreateCompalint = () => {
-    const [t] = useTranslation('common')
+import { NewUserApi } from '../Api/UserApi';
+import { CustomerRegisterionValidation } from '../../UserAuthentication/Registerions/Utils/RegisterionsValidation';
+const NewUser = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false)
-    const [errMessage, setErrMessage] = useState('')
-
-    console.log('=>>>>>>>>>>>>>>>>>>>>>>>>>>', location?.state?.complainType);
-
+    const [t] = useTranslation('common');
+    const [isLoading, setIsLoading] = useState(false);
+    const [errMessage, setErrMessage] = useState('');
 
     const onSubmit = async (values) => {
-        setIsLoading(true)
         setErrMessage("")
-        if (location?.state?.editForm) {
-            setIsLoading(true)
-            await ApiPutRequest(`complaints/${location.state.id}`,
-                {
-                    subject: values.subject,
-                    description: values.description,
-                    preferedLanguage: values.preferedLanguage,
-                    complainType: values.complainType,
-                    severity: values.severity,
-                })
-            setIsLoading(false)
-            navigate('/')
+        const response = await NewUserApi(values)
+        if (!response.isSuccessful) {
+            setErrMessage(`${response.errorMessage}`)
         } else {
-            const response = await CreateCompalintApi(values)
-            if (!response.isSuccessful) {
-                setErrMessage(`${response.errorMessage}`)
-                setIsLoading(true)
-            }
-            navigate('/')
+            navigate('/users')
         }
     }
-    const validate = values => {
-        const msg = {}
-
-        if (!values.complainType) {
-            msg.complainType = 'This field required'
-        }
-        if (!values.description) {
-            msg.description = 'This field required'
-        }
-        if (!values.severity) {
-            msg.severity = 'This field required'
-        }
-        if (!values.subject) {
-            msg.subject = 'This field required'
-        }
-        if (!values.preferedLanguage) {
-            msg.preferedLanguage = 'This field required'
-        }
-        return msg
-    }
-    console.log(location?.state?.editForm);
-    const propStyle = { padding: '15px 15px', }
     return (
         <Box
             sx={{
                 backgroundColor: '#fafafa',
-                width: '100%',
-                height: "100%",
+                width: 'auto',
+                height: "auto",
                 backgroundSize: "cover"
             }}
         >
             <Container
                 maxWidth="sm"
                 sx={{
-
                     paddingRight: 3,
                     paddingLeft: 3,
 
@@ -93,7 +54,8 @@ const CreateCompalint = () => {
                     boxShadow: '5px 10px 18px #ecf1f5'
                 }}>
                     <Box sx={{ mb: 3, textAlign: 'center', paddingTop: '55px', margin: '0px' }}>
-                        <Typography variant="h3" gutterBottom component="div" align="center">{t("create_complaint")} </Typography>
+                        <Typography variant="h5" gutterBottom component="div" align="center">{t('add_new_user')} </Typography>
+
                     </Box>
                     <CardContent sx={{ padding: "30px", paddingTop: '0' }}>
                         {errMessage && (
@@ -105,102 +67,110 @@ const CreateCompalint = () => {
                             <>
                                 <Form
                                     onSubmit={onSubmit}
-                                    validate={validate}
-                                    initialValues={
-                                        !!location?.state?.editForm ? {
-                                            subject: location?.state?.subject,
-                                            description: location?.state?.description,
-                                            preferedLanguage: location?.state?.preferedLanguage,
-                                            complainType: location?.state?.complainType,
-                                            severity: location?.state?.severity,
-                                        } : ''}
+                                    validate={(values) => {
+                                        return CustomerRegisterionValidation(values)
+                                    }}
+
                                     render={({ handleSubmit, submitting, pristine, values }) => (
                                         <form onSubmit={handleSubmit}>
                                             <Grid container spacing={3} mt={3}>
-                                                <Grid item md={12} xs={12}>
+                                                <Grid item md={12} xs={12} >
                                                     <Field
+                                                        label={t("name")}
+                                                        name="name"
+                                                        component={TextField}
+                                                        type="text"
                                                         fullWidth
-                                                        name="complainType"
-                                                        component={Select}
-                                                        label={t("complaint_type")}
-                                                        formControlProps={{ fullWidth: true }}
-                                                    >
-                                                        <MenuItem value="product">{t("product")}</MenuItem>
-                                                        <br />
-                                                        <MenuItem value="personal">{t("personal")}</MenuItem>
-                                                        <br />
+                                                    />
+                                                </Grid>
+                                                <Grid item md={12} xs={12} >
+                                                    <Field
 
-                                                        <MenuItem value="wait time">{t("wait_time")}</MenuItem>
-                                                    </Field>
+                                                        label={t("email")}
+                                                        name="email"
+                                                        component={TextField}
+                                                        type="email"
+                                                        fullWidth
+                                                    />
+
                                                 </Grid>
 
                                                 <Grid item md={12} xs={12} >
                                                     <Field
-                                                        label={t("subject")}
-                                                        name="subject"
+                                                        label={t("password")}
+                                                        name="password"
                                                         component={TextField}
+                                                        type="password"
+                                                        fullWidth
+
+                                                    />
+                                                </Grid>
+                                                <Grid item md={12} xs={12} >
+                                                    <Field
+                                                        label={t("phone_Number")}
+                                                        name="phoneNumber"
+                                                        component={TextFieldFinal}
                                                         type="text"
                                                         fullWidth
                                                     />
                                                 </Grid>
-                                                <Grid item md={12} xs={12}>
+                                                <Grid item xs={12}>
                                                     <Field
-                                                        fullWidth
-                                                        name="severity"
+                                                        label={t("education")}
+                                                        name="education"
                                                         component={Select}
-                                                        label={t("severity")}
                                                         formControlProps={{ fullWidth: true }}
                                                     >
-                                                        <MenuItem value="low">{t("low")}</MenuItem>
+                                                        <MenuItem value="Bachelors">{t("Bachelors")}</MenuItem>
+                                                        <br />
+                                                        <MenuItem value="Master">{t("Master")}</MenuItem>
                                                         <br />
 
-                                                        <MenuItem value="high">{t("high")}</MenuItem>
-                                                        <br />
-
-                                                        <MenuItem value="medium">{t("medium")}</MenuItem>
+                                                        <MenuItem value="PhD">{t("PhD")}</MenuItem>
                                                     </Field>
-                                                </Grid>
-                                                <Grid item md={12} xs={12}>
-                                                    <Field
-                                                        label={t("description")}
-                                                        name="description"
-                                                        component={TextField}
-                                                        type="text"
-                                                        fullWidth
-                                                    />
                                                 </Grid>
                                                 <Grid item className="custom-label-field" >
                                                     <FormControl component="fieldset">
-                                                        <FormLabel component="legend">{t("preferedLanguage")}</FormLabel>
+                                                        <FormLabel component="legend">{t("gender")}</FormLabel>
                                                         <RadioGroup row>
                                                             <FormControlLabel
-                                                                label={t("English")}
+                                                                label={t("female")}
                                                                 control={
                                                                     <Field
-                                                                        name="preferedLanguage"
+                                                                        name="gender"
                                                                         component={Radio}
                                                                         type="radio"
-                                                                        value="English"
+                                                                        value="female"
                                                                     />
                                                                 }
                                                             />
                                                             <FormControlLabel
-                                                                label={t("Arabic")}
+                                                                label={t("male")}
                                                                 control={
                                                                     <Field
-                                                                        name="preferedLanguage"
+                                                                        name="gender"
                                                                         component={Radio}
                                                                         type="radio"
-                                                                        value="Arabic"
+                                                                        value="male"
                                                                     />
                                                                 }
                                                             />
 
                                                         </RadioGroup>
-                                                    </FormControl>
 
+                                                    </FormControl>
                                                 </Grid>
 
+                                                <Grid item md={12} xs={12}>
+                                                    <Field
+                                                        label={t("address")}
+                                                        name="address"
+                                                        component={TextField}
+                                                        multiline
+                                                        type="text"
+                                                        fullWidth
+                                                    />
+                                                </Grid>
 
                                             </Grid>
                                             <Grid container spacing={4} mt={3}>
@@ -213,18 +183,20 @@ const CreateCompalint = () => {
                                                 </Grid>
                                                 <Grid item md={12} xs={12}>
                                                     <Button
+
                                                         disabled={submitting || pristine}
                                                         variant="contained"
                                                         color="secondary"
                                                         type="submit"
                                                         sx={{
+
                                                             borderRadius: '5em',
                                                             width: '100%',
                                                             margin: '0 auto',
-                                                            backgroundColor: '#b5099b'
+                                                            backgroundColor: '#9c27b0'
                                                         }}
                                                     >
-                                                        {t("create")}
+                                                        {t('add_btn')}
                                                     </Button>
                                                 </Grid>
                                             </Grid >
@@ -250,11 +222,10 @@ const CreateCompalint = () => {
                 </Box>
             </Container>
         </Box>
-        
 
     );
 }
 
-export default CreateCompalint;
+export default NewUser;
 
 

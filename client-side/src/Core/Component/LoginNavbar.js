@@ -3,12 +3,12 @@ import { Box, AppBar, Typography, Toolbar, Button } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
 import i18nextInit from '../Contexts/Translate/i18nextInit'
-import { handleUserLogin, userLogout } from './useLocalStorage';
+import { getCurrentUser, userLogout } from './useLocalStorage';
 
 export default function LoginNavbar() {
     console.log('seconde or third');
     const [t] = useTranslation('common')
-    const isUserLogin = handleUserLogin().name;
+    const isUserLogin = getCurrentUser().name;
     // console.log("!!isLogin", !isUserLogin);
 
     const propStyle = {
@@ -17,6 +17,7 @@ export default function LoginNavbar() {
     };
     const buttonStyle = {
         position: "relative",
+        textTransform: 'none',
         float: "left",
         color: "white",
         marginLeft: 0,
@@ -37,9 +38,8 @@ export default function LoginNavbar() {
 
 
                     <Button href="/signin" style={buttonStyle} >{t("login")}</Button>
-
-                    <Button size='small' style={buttonStyle} onClick={() => handleClick('ar')}>Ar</Button>
-                    <Button size='small' style={buttonStyle} onClick={() => handleClick('en')}>En</Button>
+                    <Button size='small' style={buttonStyle} onClick={() => handleClick('ar')}>{t('ar')}</Button>
+                    <Button size='small' style={buttonStyle} onClick={() => handleClick('en')}>{t('en')}</Button>
 
                 </Toolbar>
             </AppBar>

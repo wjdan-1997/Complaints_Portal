@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import { BrowserRouter } from 'react-router-dom';
 
@@ -11,7 +11,9 @@ import './Core/Contexts/Translate/i18nextInit'
 ReactDOM.render(
   <BrowserRouter>
     <ErrorBoundary>
+    <Suspense fallback={<div>Loading...</div>}>
         <App />
+      </Suspense>
     </ErrorBoundary>
   </BrowserRouter>
 

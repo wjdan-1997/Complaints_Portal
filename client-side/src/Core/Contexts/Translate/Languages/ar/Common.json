@@ -1,5 +1,8 @@
 {
     "Lang": "ar",
+    "ar": "العربيه",
+    "en": "الانجليزية",
+    "hello": "اهلاوسهلا",
     "login": "تسجسيل الدخول",
     "Sign_Out": "تسجيل الخروج",
     "title": "بوابة الالهام العربية لإدارة الشكاوى",
@@ -22,6 +25,7 @@
     "male": "ذكر",
     "address": "العنوان",
     "terms": "اوافق على الشروط والأحكام",
+    "view_all_users": "المستخدمين",
     "complaint_details": "تفاصيل الشكوى",
     "create_complaint": "إضافة شكوى",
     "all_complaints": "جميع الشكاوى",
@@ -50,5 +54,21 @@
     "wait_time": "الوقت",
     "low": "منخفض",
     "medium": "متوسط",
-    "high": "عالي"
+    "high": "عالي",
+    "add_new_user": "إضافة مستخدم جديد",
+    "add_btn": "إضافة مستخدم",
+    "all_users": "جميع المستخدمين",
+    "role": "النوع",
+    "languages": "اللغات",
+    "user_profile": "الملف الشخصي",
+    "edit_user_profile":"تعديل الملف الشخصي",
+    "account": "الحساب",
+    "send": "إرسال",
+    "profile": "الملف التعريفي",
+    "change_password": " تغير الرقم السري",
+    "current_password":"كلمة المرور الحالية",
+    "new_password":"كلمة المرور الجديده",
+    "user_management":"إدارة المستخدمين",
+    "control_your_users":"التحكم بالمستخدمين"
+
 }

@@ -26,24 +26,7 @@ const CustomerRegisterionValidation = (values) => {
 return msg;
 }
 
-const AdminRegisterionValidation = (values) => {
-    let msg = {}
-    if (!values.name) {
-        msg.name = 'This field is required'
-    }
-    if (!values.email) {
-        msg.email = 'This field is required'
-    }
-    if (!values.password) {
-        msg.password = 'This field is required'
-    }
-    if (!values.phoneNumber) {
-        msg.phoneNumber = 'This field is required'
-    }
-return msg;
-}
 
 export {
-    CustomerRegisterionValidation,
-    AdminRegisterionValidation
+    CustomerRegisterionValidation
 }

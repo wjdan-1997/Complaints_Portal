@@ -42,7 +42,8 @@ newComplaint = async (req, res) => {
 }
 // Retrieve all complaint /api/complaints
 retrieveComplaint = async (req, res) => {
-    const isAdmin = req.user.isAdmin;
+    const isAdmin = req.user.role == 'admin';
+
     const currnetUserId = req.user.id;
     if (currnetUserId == null) {
         res.status(401)
@@ -61,7 +62,7 @@ retrieveComplaint = async (req, res) => {
         }
 
         return res.status(200).json({ success: true, responseBody: data })
-    }).catch(err => console.log(err))
+    }).clone().catch(err => console.log(err))
 
     return data;
 }
@@ -146,7 +147,7 @@ updateComplaint = async (req, res) => {
 // for admin
 updateComplaintByStatues = async (req, res) => {
     const { status } = req.body
-    const isAdmin = req.user.isAdmin;
+    const isAdmin = req.user.role == 'admin';
     const updatedByAdmin = req.user.username;
     const id = req.params.id;
     if (!isAdmin) {

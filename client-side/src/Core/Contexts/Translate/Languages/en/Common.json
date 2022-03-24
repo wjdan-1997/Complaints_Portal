@@ -1,5 +1,8 @@
 {
     "Lang": "en",
+    "ar":"Arabic",
+    "en":"English",
+    "hello":"Hello",
     "login": "Sign In",
     "Sign_Out": "Sign Out",
     "title": "Inspire ksa Complaints Management Portal",
@@ -22,6 +25,7 @@
     "male": "Male",
     "address": "Addess",
     "terms": "Agree For Terms and Conditions",
+    "view_all_users":"All Users",
     "all_complaints": "All Complaints",
     "complaint_details": "Complaint Details",
     "create_complaint": "Create Complaint",
@@ -50,5 +54,22 @@
     "wait_time": "wait time",
     "low": "Low",
     "medium": "medium",
-    "high": "high"
+    "high": "high",
+    "add_new_user":"Add New User",
+    "add_btn":"Add User",
+    "all_users":"All Users",
+    "role":"role",
+    "languages":"languages",
+    "user_profile": " User Profile",
+    "edit_user_profile":"Edit User Profile",
+    "account":"Account",
+    "send":"Send",
+    "profile":"Profile",
+    "change_password":"Change Password",
+    "current_password":"Current Password",
+    "new_password":"New Password",
+    "user_management":"User Management",
+    "control_your_users":"Control Your users"
+
+
 }

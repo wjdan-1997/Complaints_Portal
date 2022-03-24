@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 
 function auth(req, res, next) {
     const token = req.headers['authorization']?.split(' ')[1] // 'barrer' 'token'
-    console.log("Is Auth : ", token);
+
+    // console.log("Is Auth : ", token);
     
     if (token) {
 
@@ -14,7 +15,7 @@ function auth(req, res, next) {
             req.user.id = decode.id
             req.user.email = decode.email
             req.user.username = decode.name,
-            req.user.isAdmin = decode.isAdmin,
+            req.user.role = decode.role,
             next();
         })
     }
