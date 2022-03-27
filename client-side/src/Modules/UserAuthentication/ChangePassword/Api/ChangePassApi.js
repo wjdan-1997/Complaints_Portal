@@ -1,5 +1,5 @@
 
-import { ApiPostRequest } from "../../../../Core/API/ApiRequest";
+import {  ApiPutRequest } from "../../../../Core/API/ApiRequest";
 const ChangePasswordApi = async (values,id) => {
     const requestBody ={
         passwordReceived: values.password,

@@ -29,7 +29,7 @@ const ChangePassword = () => {
         if (!response.isSuccessful) {
             console.log('err in change password');
             setErrMessage(`${response.errorMessage}`)
-            setIsLoading(true)
+            // setIsLoading(true)
         } else {
             console.log('ooka pass changed');
             localStorage.clear()

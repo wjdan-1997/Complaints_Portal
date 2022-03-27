@@ -35,9 +35,16 @@ const ViewUsers = () => {
             setIsLoading(false)
         }
     }, []);
-        console.log('users list',users);
-    const handleEdit = (id) => {
-        navigate('/editProfile', { state: { editFormInUser: true,id:id } })
+    console.log('users list', users);
+    const handleEdit = (id, email, name, phoneNumber, education, gender, address) => {
+        navigate('/editUser', {
+            state: {
+                editFormInUser: true, id: id,
+                email: email, name: name,
+                phoneNumber: phoneNumber, education: education,
+                gender: gender, address: address
+            }
+        })
     }
 
     const handleDelete = (id) => {
@@ -91,7 +98,17 @@ const ViewUsers = () => {
                                                     {row?.role}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Button variant="text" color="secondary" style={{ textTransform: 'none' }} onClick={() => handleEdit(row?._id)}>{t('edit')}</Button>
+                                                    <Button variant="text" color="secondary" style={{ textTransform: 'none' }}
+                                                        onClick={() => handleEdit(
+                                                            row?._id,
+                                                            row.email,
+                                                            row.name,
+                                                            row.phoneNumber,
+                                                            row.education,
+                                                            row.gender,
+                                                            row.address,
+                                                        )}
+                                                    > {t('edit')}</Button>
                                                     <Button variant="text" color="secondary" style={{ textTransform: 'none' }} onClick={() => handleDelete(row?._id)}>{t('delete')}</Button>
                                                 </TableCell>
                                             </TableRow>

@@ -8,10 +8,9 @@ import { Field, Form } from 'react-final-form';
 
 
 import { useTranslation } from 'react-i18next';
-import { UserProfileApi, UserProfileByAdminApi } from '../Api/UserApi';
-import CheckBoxField from '../../../Core/Component/CheckBox';
-import { ApiPutRequest } from '../../../Core/API/ApiRequest';
-import { validate } from '../Utils/UserValidation';
+import { UserProfileByAdminApi } from '../Api/UserApi';
+
+import { CustomerRegisterionValidation } from '../../UserAuthentication/Registerions/Utils/RegisterionsValidation';
 const EditUser = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -21,28 +20,16 @@ const EditUser = () => {
     // useEffect => currentUser(id) => all info 
     const onSubmit = async (values) => {
         const id = location?.state?.id;
-        if (location?.state?.editFormInUser) {
-            const response = await UserProfileByAdminApi(values, id)
-            if (!response.isSuccessful) {
-                setErrMessage(`${response.errorMessage}`)
-                console.log('err  in update profile by admin');
-            }
-            else {
-                setIsLoading(false)
-                navigate('/users')
-            }
-        } else {
-            setErrMessage("")
-            const response = await UserProfileApi(values, id)
-            if (!response.isSuccessful) {
-                setErrMessage(`${response.errorMessage}`)
-                console.log('err in update profile by user');
-            } else {
-                console.log('okaaaaaaaay check !');
-                localStorage.clear()
-                navigate('/signin')
-            }
+        const response = await UserProfileByAdminApi(values, id)
+        if (!response.isSuccessful) {
+            setErrMessage(`${response.errorMessage}`)
+            console.log('err  in update profile by admin');
         }
+        else {
+            setIsLoading(false)
+            navigate('/users')
+        }
+
 
     }
 
@@ -64,7 +51,7 @@ const EditUser = () => {
             <Container maxWidth="md">
                 <Card>
                     <Box sx={{ mb: 3, textAlign: 'center', paddingTop: '55px', margin: '0px' }}>
-                        <Typography variant="h5" gutterBottom component="div" align="center">{t('edit_user_profile')} </Typography>
+                        <Typography variant="h5" gutterBottom component="div" align="center">{t('user_profile')} </Typography>
                     </Box>
                     <Divider />
 
@@ -78,15 +65,16 @@ const EditUser = () => {
                             <>
                                 <Form
                                     onSubmit={onSubmit}
-                                    validate={(values) => { return validate(values) }}
+                                    validate={(values) => { return CustomerRegisterionValidation(values) }}
                                     initialValues={
-                                        !!location?.state?.editForm ? {
+                                        !!location?.state?.editFormInUser ? {
                                             name: location?.state?.name,
                                             email: location?.state?.email,
-                                            phoneNumber: location?.state?.phoneNumber,
-                                            education: location?.state?.education,
                                             address: location?.state?.address,
+                                            phoneNumber: location?.state?.phoneNumber,
                                             gender: location?.state?.gender,
+                                            education: location?.state?.education,
+
 
                                         } : ''}
                                     render={({ handleSubmit, submitting, pristine, values }) => (
@@ -111,6 +99,18 @@ const EditUser = () => {
                                                             name="email"
                                                             component={TextField}
                                                             type="email"
+                                                            fullWidth
+                                                        />
+                                                    </Item>
+
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Item>
+                                                        <Field
+                                                            label={t("password")}
+                                                            name="password"
+                                                            component={TextField}
+                                                            type="password"
                                                             fullWidth
                                                         />
                                                     </Item>
@@ -193,19 +193,11 @@ const EditUser = () => {
                                                     </Item>
 
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <Item >
-                                                   
-                                                    <CheckBoxField
-                                                        label={t("terms")}
-                                                        name='Agree'
-                                                        required='true'
-                                                    />
-                                                    </Item>
 
-                                                </Grid>
                                             </Grid>
-                                            <br /><br />
+                                            <br/>
+                                            <Divider/>
+                                            <br/>
                                             <Grid item md={12} xs={12}>
                                                 <Button
                                                     disabled={submitting || pristine}

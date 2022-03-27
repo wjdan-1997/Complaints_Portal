@@ -9,9 +9,10 @@ const NewUserApi = async (values) => {
         phoneNumber: values.phoneNumber,
         gender: values.gender,
         address: values.address,
+        role:values.role,
     }
     const url = 'users/newUser';
-    console.log("added new user");
+    console.log(`the ${values.role} added`);
     const response = await ApiPostRequest(url, requestBody)
     return response;
 }
@@ -39,6 +40,7 @@ const UserProfileByAdminApi = async (values, id) => {
         phoneNumber: values.phoneNumber,
         gender: values.gender,
         address: values.address,
+        passwordReceived:values.password,
     }
     const url = `users/${id}`;
     console.log("edit user");

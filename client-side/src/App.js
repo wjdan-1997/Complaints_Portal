@@ -16,6 +16,7 @@ import NewUser from './Modules/Users/Pages/Users';
 import UserProfile from './Modules/Users/Pages/UserProfile';
 import EditUser from './Modules/Users/Pages/EditUser';
 import ChangePassword from './Modules/UserAuthentication/ChangePassword/Pages/ChangePassword';
+import EditProfile from './Modules/Users/Pages/EditProfile';
 const App = () => {
   const navigate = useNavigate()
   const { t } = useTranslation();
@@ -37,10 +38,12 @@ const App = () => {
         <Route path='/signin' element={<Login />} />
         <Route path='/signup' element={<CustomerRegisterion />} />
         <Route path='/userProfile' element={<UserProfile/>}/>
-        <Route path='/editProfile' element={<EditUser/>}/>
+        <Route path='/editProfile' element={<EditProfile/>}/>
         <Route path='/changePassword' element={<ChangePassword/>}/>
         <Route path='/users' element={<ViewUsers />} /> 
         <Route path='/newUser' element={<NewUser />} />
+        <Route path='/editUser' element={<EditUser/>}/>
+
 
         <Route path='/complaint/new' element={<CreateCompalint />} />
         <Route path='/complaint/edit' element={<CreateCompalint />} />

@@ -157,7 +157,32 @@ const NewUser = () => {
                                                             />
 
                                                         </RadioGroup>
+                                                        <FormLabel component="legend">{t("role")}</FormLabel>
+                                                        <RadioGroup row>
+                                                            <FormControlLabel
+                                                                label={t("admin")}
+                                                                control={
+                                                                    <Field
+                                                                        name="role"
+                                                                        component={Radio}
+                                                                        type="radio"
+                                                                        value="admin"
+                                                                    />
+                                                                }
+                                                            />
+                                                            <FormControlLabel
+                                                                label={t("user")}
+                                                                control={
+                                                                    <Field
+                                                                        name="role"
+                                                                        component={Radio}
+                                                                        type="radio"
+                                                                        value="user"
+                                                                    />
+                                                                }
+                                                            />
 
+                                                        </RadioGroup>
                                                     </FormControl>
                                                 </Grid>
 
@@ -174,13 +199,7 @@ const NewUser = () => {
 
                                             </Grid>
                                             <Grid container spacing={4} mt={3}>
-                                                <Grid item md={12} xs={12} >
-                                                    <CheckBoxField
-                                                        label={t("terms")}
-                                                        name='Agree'
-                                                        required='true'
-                                                    />
-                                                </Grid>
+                                                
                                                 <Grid item md={12} xs={12}>
                                                     <Button
 

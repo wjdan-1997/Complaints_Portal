@@ -48,7 +48,7 @@ userRegistering = (req, res) => {
 // only for admin you use this route in user managemnt screen
 createUser = async (req, res) => {
     const isAdmin = req.user.role == 'admin'
-    const { name, email, password, education, phoneNumber, gender, address } = req.body;
+    const { name, email, password, education, phoneNumber, gender, address, role } = req.body;
 
     if (!isAdmin) {
         return res.status(401)
@@ -70,6 +70,7 @@ createUser = async (req, res) => {
                 phoneNumber,
                 gender,
                 address,
+                role,
             });
             console.log('newUserr--1', newUser);
             console.log('passswordBody--2', password);
@@ -188,12 +189,17 @@ userProfile = async (req, res) => {
     data.save()
         .then(user => res.json({ responseBody: user }));
 }
+
 // update user only allowed by admin 
 updateUser = async (req, res) => {
-    const { name, email, education, phoneNumber, gender, address } = req.body;
+    const { name, email, education, phoneNumber, gender, address, passwordReceived } = req.body;
 
     const isAdmin = req.user.role == 'admin';
     const id = req.params.id;
+
+    const saltCrypt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(passwordReceived, saltCrypt);
+
 
     if (!isAdmin) {
         return res.status(401)
@@ -222,6 +228,7 @@ updateUser = async (req, res) => {
     data.phoneNumber = phoneNumber
     data.gender = gender
     data.address = address
+    data.password = passwordHash;
     data.save()
         .then(user => res.json({ responseBody: user }))
 
