@@ -75,53 +75,22 @@ const ViewUsers = () => {
     const [records, setRecords] = useState(users)
     const [notification, setNotification] = useState({ isOpen: false, title: '', subTitle: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
-    const addOrEdit = (values, id) => {
 
-        console.log('Valuesssss Hellllo', values);
-        // resetForm()
+    const addOrEdit = (values, id) => {
+        
         setOpenPopup(false)
         const updateUserIndex = users.findIndex(e => e._id == id);
         console.log('updateUserIndex:', updateUserIndex)
         users[updateUserIndex] = { ...values }
         setRecordForEdit(null)
-        // let newUsers = users;
-        // console.log('users',users);
         setUsers(users)
         console.log('esh this new users ', users);
         setNotification({
             isOpen: true,
-            message: 'okaaaaaaaaaaaa',
+            message: 'Submitted Successfully',
             type: 'success'
         })
-        // navigate('/users')
-        //     let data= [];
-
-        //     console.log(data);
-
-        //     data = [
-        //         {id: 1, name: "A", age: "1"},
-        //         {id: 2, name: "B", age: "2"},
-        //         {id: 3, name: "C", age: "3"}
-        //     ];
-
-        //     console.log(data);
-
-        //    const dataUpdate = {id: 1, name: "F"};
-
-        //     const index = data.findIndex(x => x.id == 1);
-        //     data[index] = { ...dataUpdate };
-
-        //     console.log(data);
-
-        //     console.log('update data:', values);
-        //     console.log('with id:', id);
-
-
-        // setNotify({
-        //     isOpen: true,
-        //     message: 'Submitted haha Successfully',
-        //     type: 'success'
-        // })
+       
     }
 
     const openInPopup = row => {
@@ -130,10 +99,6 @@ const ViewUsers = () => {
         setOpenPopup(true)
     }
 
-    const handleClose = () => {
-        setOpenPopup(false);
-        navigate('/users', { replace: true });
-    };
     useEffect(async () => {
         setIsLoading(true)
         const response = await ApiGetRequest('users/getUsers')
@@ -170,7 +135,7 @@ const ViewUsers = () => {
                 setUsers(updatedUser)
                 setNotification({
                     isOpen: true,
-                    message: 'delete',
+                    message: 'Deleted Successfully',
                     type: 'error'
                 })
             })
@@ -202,8 +167,6 @@ const ViewUsers = () => {
                 </Toolbar>
                 <Container maxWidth='lg' >
 
-
-
                     <CardContent>
                         {!isLoading ? (
 
@@ -211,10 +174,11 @@ const ViewUsers = () => {
                                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                     <TableHead sx={{ backgroundColor: '#1f7d4c4f', }}>
                                         <TableRow >
-                                            <TableCell align="center">{t("name")}</TableCell>
-                                            <TableCell align="center">{t("email")}</TableCell>
-                                            <TableCell align="center">{t("role")} </TableCell>
-                                            <TableCell align="center"> {t("action")}</TableCell>
+                                            <TableCell sx={{ fontWeight: '700' }} align="center">{t("name")}</TableCell>
+                                            <TableCell sx={{ fontWeight: '700' }} align="center">{t("email")}</TableCell>
+                                            <TableCell sx={{ fontWeight: '700' }} align="center">{t("role")} </TableCell>
+                                            <TableCell sx={{ fontWeight: '700' }} align="center">{t("phone_Number")} </TableCell>
+                                            <TableCell sx={{ fontWeight: '700' }} align="center"> {t("action")}</TableCell>
                                             <TableCell align="center"> </TableCell>
 
 
@@ -232,27 +196,25 @@ const ViewUsers = () => {
                                                     <TableCell align="center">
                                                         {row?.role}
                                                     </TableCell>
+                                                    <TableCell align="center">
+                                                        {row?.phoneNumber}
+                                                    </TableCell>
                                                     <TableCell sx={{ paddingLeft: '111px' }}>
-                                                        <Button
-                                                            color='primary'
-                                                            onClick={() => openInPopup(row)}
-                                                        >
-                                                            test
-
-                                                        </Button>
+                                                        
                                                         <Button
                                                             variant="outlined"
                                                             color="primary"
                                                             style={{ textTransform: 'none' }}
-                                                            onClick={() => handleEdit(
-                                                                row?._id,
-                                                                row.email,
-                                                                row.name,
-                                                                row.phoneNumber,
-                                                                row.education,
-                                                                row.gender,
-                                                                row.address,
-                                                            )}
+                                                            // onClick={() => handleEdit(
+                                                            //     row?._id,
+                                                            //     row.email,
+                                                            //     row.name,
+                                                            //     row.phoneNumber,
+                                                            //     row.education,
+                                                            //     row.gender,
+                                                            //     row.address,
+                                                            // )}
+                                                            onClick={() => openInPopup(row)}
                                                             startIcon={<EditIcon />}
                                                         > </Button>
                                                         <Button
@@ -263,8 +225,7 @@ const ViewUsers = () => {
                                                             onClick={() =>
                                                                 setConfirmDialog({
                                                                     isOpen: true,
-                                                                    title: 'sure to delte this user!',
-                                                                    subTitle: 'delete user',//
+                                                                    title: 'Are you sure to delete this user !',
                                                                     onConfirm: () => { handleDelete(row?._id)
 }
                                                                 })

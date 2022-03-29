@@ -78,9 +78,9 @@ const App = () => {
   return (
 
     <ThemeProvider theme={theme}>
-   <SideMenu />
+  
    <div className={classes.appMain}>
-
+    <SideMenu/>
         {!isUserLogin ? (
           <LoginNavbar />
         ) : (
@@ -93,7 +93,7 @@ const App = () => {
           <Route path='/signup' element={<CustomerRegisterion />} />
           <Route path='/userProfile' element={<UserProfile />} />
           <Route path='/changePassword' element={<ChangePassword />} />
-          <Route path='/users' element={<ViewUsers />} />
+          <Route path='/users' element={!isUserLogin ? (<Login />) :(<ViewUsers />)} />
           <Route path='/newUser' element={<NewUser />} />
           <Route path='/editUser' element={<EditUser />} />
 

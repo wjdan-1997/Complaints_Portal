@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from "react-router-dom";
 
-import { Badge, Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
+import { Avatar, Badge, Button, FormControl, Grid, InputLabel, MenuItem, Select, SvgIcon } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
@@ -44,19 +44,22 @@ function ResponsiveDrawer(props) {
         console.log(`Changed to ${lang}`);
         i18nextInit.changeLanguage(lang)
     };
+
     const handleLogout = () => {
         userLogout()
     };
     const drawer = (
-        <div><Logo />
+        <div>
+            <Logo />
             <Toolbar />
-            
+
             <br />
             <br />
             <br />
             <ListItem >
                 <ListItemIcon>
-                    < PermIdentityIcon />
+                    <Avatar> < PermIdentityIcon fontSize='large'/></Avatar>
+                   
                 </ListItemIcon>
                 <ListItemText primary={name} />
             </ListItem>
@@ -75,7 +78,7 @@ function ResponsiveDrawer(props) {
                     </ListItemIcon>
                     <ListItemText primary={t("view_all_complaint")} />
                 </ListItem>
-                <ListItem button onClick={() => handleLogout()}>
+                <ListItem button component={Link} to="/signin" onClick={() => handleLogout()}>
                     <ListItemIcon>
                         <LogoutIcon />
                     </ListItemIcon>
@@ -118,38 +121,55 @@ function ResponsiveDrawer(props) {
                         </Grid>
                         <Grid item sm></Grid>
                         <Grid item>
-                            {
-                                role == 'admin' ? (
-                                    ''
-                                ) : (<FormControl variant="outlined">
-                                    <InputLabel >{t('account')}
-                                    </InputLabel>
-                                    <Select sx={{ borderRadius: 2, color: 'success.dark', borderColor: 'white', width: 100, paddingTop: '4px', marginRight: '8px' }}>
+                            {!!role == 'admin' ? (<FormControl variant="outlined">
+                                <InputLabel >{t('account')}
+                                </InputLabel>
+                                <Select
 
-                                        <MenuItem component="a" href="/userProfile">{t('profile')}
-                                            <IconButton>
-                                                <Badge>
-                                                    <ManageAccountsIcon fontSize="small" />
-                                                </Badge>
-                                            </IconButton>
-                                        </MenuItem>
-                                        <MenuItem component="a" href="/changePassword">{t('change_password')}
-                                            <IconButton>
-                                                <Badge>
-                                                    <PublishedWithChangesIcon fontSize="small" />
-                                                </Badge>
-                                            </IconButton>
-                                        </MenuItem>
-                                        <MenuItem component="a" href="/signin" onClick={() => handleLogout()}> {t("Sign_Out")}
-                                            <IconButton>
-                                                <Badge>
-                                                    <LogoutIcon fontSize="small" />
-                                                </Badge>
-                                            </IconButton>
-                                        </MenuItem>
-                                    </Select>
-                                </FormControl>)
-                            }
+                                    sx={{ borderRadius: 2, color: 'success.dark', borderColor: 'white', width: 100, paddingTop: '4px', marginRight: '8px' }}>
+
+                                    <MenuItem component="a" href="/userProfile">{t('profile')}
+                                        <IconButton>
+                                            <Badge>
+                                                <ManageAccountsIcon fontSize="small" />
+                                            </Badge>
+                                        </IconButton>
+                                    </MenuItem>
+                                    <MenuItem component="a" href="/changePassword">{t('change_password')}
+                                        <IconButton>
+                                            <Badge>
+                                                <PublishedWithChangesIcon fontSize="small" />
+                                            </Badge>
+                                        </IconButton>
+                                    </MenuItem>
+                                    <MenuItem component="a" href="/signin" onClick={() => handleLogout()}> {t("Sign_Out")}
+                                        <IconButton>
+                                            <Badge>
+                                                <LogoutIcon fontSize="small" />
+                                            </Badge>
+                                        </IconButton>
+                                    </MenuItem>
+                                    <MenuItem onClick={() => handleClick('ar')}>
+                                        {t('ar')}
+                                        <IconButton>
+                                            <Badge>
+                                                <LanguageIcon fontSize="small" />
+                                            </Badge>
+                                        </IconButton>
+                                    </MenuItem>
+                                    <MenuItem onClick={() => handleClick('en')}>
+                                        {t('en')}
+                                        <IconButton>
+                                            <Badge>
+                                                <LanguageIcon fontSize="small" />
+                                            </Badge>
+                                        </IconButton>
+                                    </MenuItem>
+
+                                </Select>
+                            </FormControl>) : ('')}
+
+
 
 
                         </Grid>
