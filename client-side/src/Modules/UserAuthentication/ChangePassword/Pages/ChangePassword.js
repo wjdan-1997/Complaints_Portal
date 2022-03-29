@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router";
 import { useTranslation } from 'react-i18next';
 import { Field, Form } from 'react-final-form';
 import { TextField } from 'final-form-material-ui';
-import { getCurrentUser } from '../../../../Core/Component/useLocalStorage';
+import { getCurrentUser } from '../../../../Core/Components/useLocalStorage';
 import ChangePasswordApi from '../Api/ChangePassApi';
 import { changePasswordValidation } from '../../../Users/Utils/UserValidation';
 

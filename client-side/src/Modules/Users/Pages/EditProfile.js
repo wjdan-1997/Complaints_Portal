@@ -9,10 +9,11 @@ import { Field, Form } from 'react-final-form';
 
 import { useTranslation } from 'react-i18next';
 import { UserProfileApi, UserProfileByAdminApi } from '../Api/UserApi';
-import CheckBoxField from '../../../Core/Component/CheckBox';
+import CheckBoxField from '../../../Core/Components/CheckBox';
 import { ApiPutRequest } from '../../../Core/API/ApiRequest';
 import { validate } from '../Utils/UserValidation';
-const EditProfile = () => {
+const EditProfile = ({recordForEdit}) => {
+    console.log('EDDDDDD=>>',recordForEdit);
     const location = useLocation();
     const navigate = useNavigate();
     const [t] = useTranslation('common');
@@ -20,7 +21,7 @@ const EditProfile = () => {
     const [errMessage, setErrMessage] = useState('');
     // useEffect => currentUser(id) => all info 
     const onSubmit = async (values) => {
-        const id = location?.state?.id;
+        const id = recordForEdit?.id;
        
             setErrMessage("")
             const response = await UserProfileApi(values, id)
@@ -62,8 +63,11 @@ const EditProfile = () => {
                         {errMessage && (
                             <Alert variant="outlined" severity="error">
                                 {errMessage}
+                                
                             </Alert>
                         )}
+                        
+                        <Divider/>
                         {!isLoading ? (
                             <>
                                 <Form
@@ -78,7 +82,13 @@ const EditProfile = () => {
                                             address: location?.state?.address,
                                             gender: location?.state?.gender,
 
-                                        } : ''}
+                                        } : {
+                                            name: recordForEdit?.name,
+                                            email: recordForEdit?.email,
+                                            phoneNumber: recordForEdit?.phoneNumber,
+                                            education: recordForEdit?.education,
+                                            address: recordForEdit?.address,
+                                            gender: recordForEdit?.gender, }}
                                     render={({ handleSubmit, submitting, pristine, values }) => (
                                         <form onSubmit={handleSubmit}>
                                             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

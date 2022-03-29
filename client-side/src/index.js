@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom'
-import ErrorBoundary from './Core/Component/ErrorBoundry';
+import ErrorBoundary from './Core/Components/ErrorBoundry';
 
 import './Core/Contexts/Translate/i18nextInit'
 ReactDOM.render(

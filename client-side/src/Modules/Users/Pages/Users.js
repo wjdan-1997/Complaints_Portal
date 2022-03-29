@@ -8,7 +8,7 @@ import { Field, Form } from 'react-final-form';
 
 
 
-import CheckBoxField from '../../../Core/Component/CheckBox'
+import CheckBoxField from '../../../Core/Components/CheckBox'
 import { useTranslation } from 'react-i18next';
 import { NewUserApi } from '../Api/UserApi';
 import { CustomerRegisterionValidation } from '../../UserAuthentication/Registerions/Utils/RegisterionsValidation';
@@ -31,7 +31,7 @@ const NewUser = () => {
     return (
         <Box
             sx={{
-                backgroundColor: '#fafafa',
+                backgroundColor: '#f4f5fd',
                 width: 'auto',
                 height: "auto",
                 backgroundSize: "cover"

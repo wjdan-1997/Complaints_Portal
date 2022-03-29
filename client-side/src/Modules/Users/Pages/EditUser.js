@@ -11,15 +11,22 @@ import { useTranslation } from 'react-i18next';
 import { UserProfileByAdminApi } from '../Api/UserApi';
 
 import { CustomerRegisterionValidation } from '../../UserAuthentication/Registerions/Utils/RegisterionsValidation';
-const EditUser = () => {
+const EditUser = (props) => {
+    const { recordForEdit , addOrEdit } = props
+    console.log('iddddddd=>>>>>>', recordForEdit?._id);
+
     const location = useLocation();
     const navigate = useNavigate();
     const [t] = useTranslation('common');
     const [isLoading, setIsLoading] = useState(false);
     const [errMessage, setErrMessage] = useState('');
     // useEffect => currentUser(id) => all info 
+
+    const [openPopup, setOpenPopup] = useState(false) // for Dilog
+
+
     const onSubmit = async (values) => {
-        const id = location?.state?.id;
+        const id = recordForEdit?._id;
         const response = await UserProfileByAdminApi(values, id)
         if (!response.isSuccessful) {
             setErrMessage(`${response.errorMessage}`)
@@ -27,12 +34,12 @@ const EditUser = () => {
         }
         else {
             setIsLoading(false)
-            navigate('/users')
+            addOrEdit(values,id)
+            // navigate('/')
         }
 
 
     }
-
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#ba9fc01f',
         ...theme.typography.body2,
@@ -76,7 +83,14 @@ const EditUser = () => {
                                             education: location?.state?.education,
 
 
-                                        } : ''}
+                                        } : {
+                                            name: recordForEdit?.name,
+                                            email: recordForEdit?.email,
+                                            phoneNumber: recordForEdit?.phoneNumber,
+                                            education: recordForEdit?.education,
+                                            address: recordForEdit?.address,
+                                            gender: recordForEdit?.gender,
+                                        }}
                                     render={({ handleSubmit, submitting, pristine, values }) => (
                                         <form onSubmit={handleSubmit}>
                                             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -195,16 +209,15 @@ const EditUser = () => {
                                                 </Grid>
 
                                             </Grid>
-                                            <br/>
-                                            <Divider/>
-                                            <br/>
+                                            <br />
+                                            <Divider />
+                                            <br />
                                             <Grid item md={12} xs={12}>
                                                 <Button
                                                     disabled={submitting || pristine}
                                                     variant="contained"
                                                     color="secondary"
                                                     type="submit"
-
                                                     sx={{
                                                         borderRadius: '5em',
                                                         width: '100%',

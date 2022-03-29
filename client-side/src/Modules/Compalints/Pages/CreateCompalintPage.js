@@ -4,7 +4,7 @@ import { Divider, Box, Grid, Typography, CardContent, CircularProgress, Button, 
 import { TextField, Radio, Select } from 'final-form-material-ui';
 import { useNavigate, useLocation } from "react-router";
 import { Field, Form } from 'react-final-form';
-import CheckBoxField from '../../../Core/Component/CheckBox';
+import CheckBoxField from '../../../Core/Components/CheckBox';
 import CreateCompalintApi from '../Api/CreateComplaintApi';
 import { ApiPutRequest } from '../../../Core/API/ApiRequest';
 import { useTranslation } from 'react-i18next';

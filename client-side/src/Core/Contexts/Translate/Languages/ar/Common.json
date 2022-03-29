@@ -59,6 +59,8 @@
     "add_btn": "إضافة مستخدم",
     "all_users": "جميع المستخدمين",
     "role": "النوع",
+    "action":"الاجراء",
+
     "languages": "اللغات",
     "user_profile": "الملف الشخصي",
     "edit_user_profile":"تعديل الملف الشخصي",

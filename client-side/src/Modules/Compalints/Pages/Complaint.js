@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { ApiDeleteRequest, ApiPutRequest } from '../../../Core/API/ApiRequest';
-import { getComplaintInfo, getCurrentUser } from '../../../Core/Component/useLocalStorage';
+import { getComplaintInfo, getCurrentUser } from '../../../Core/Components/useLocalStorage';
 import { useTranslation } from 'react-i18next';
 
 const Compalint = () => {

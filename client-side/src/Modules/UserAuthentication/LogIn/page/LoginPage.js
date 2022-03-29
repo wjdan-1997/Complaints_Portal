@@ -6,7 +6,7 @@ import { TextField } from 'final-form-material-ui';
 import { useTranslation } from "react-i18next";
 import UserLoginApi from "../Api/UserLoginApi";
 import { useNavigate } from "react-router-dom";
-import { setCurrentUser, setAuthToken } from '../../../../Core/Component/useLocalStorage';
+import { setCurrentUser, setAuthToken } from '../../../../Core/Components/useLocalStorage';
 import axios from 'axios';
 
 const Login = () => {

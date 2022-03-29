@@ -9,7 +9,7 @@ import { Field, Form } from 'react-final-form';
 
 import { CustomerRegisterionApi } from "../Api/UserRegistrionApi";
 import { CustomerRegisterionValidation } from "../Utils/RegisterionsValidation";
-import CheckBoxField from '../../../../Core/Component/CheckBox'
+import CheckBoxField from '../../../../Core/Components/CheckBox'
 import { useTranslation } from 'react-i18next';
 import { ApiPutRequest } from '../../../../Core/API/ApiRequest';
 const CustomerRegisterion = () => {
