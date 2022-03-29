@@ -43,7 +43,7 @@ export default function ConfirmDialog(props) {
             </DialogContent>
             <DialogActions className={classes.dialogActions}>
                 <Button
-                    //onClick={handleAccept}
+                    onClick={confirmDialog.onConfirm}
                     color="primary"
                     variant="contained"
                     autoFocus
@@ -58,7 +58,7 @@ export default function ConfirmDialog(props) {
                     Yes
                 </Button>
                 <Button
-                    onClick={() => setConfirmDialog({ ...confirmDialog, isOpen: false})}
+                    onClick={() => setConfirmDialog({ ...confirmDialog, isOpen: false })}
                     color="primary"
                     variant="contained"
                     autoFocus

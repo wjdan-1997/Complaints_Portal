@@ -160,6 +160,10 @@ const ViewUsers = () => {
     }
 
     const handleDelete = (id) => {
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        })
         ApiDeleteRequest(`users/${id}`)
             .then(response => {
                 const updatedUser = users.filter(e => e._id != id);
@@ -258,11 +262,13 @@ const ViewUsers = () => {
                                                             style={{ textTransform: 'none' }}
                                                             onClick={() =>
                                                                 setConfirmDialog({
-                                                                    isOpen: true.valueOf,
+                                                                    isOpen: true,
                                                                     title: 'sure to delte this user!',
-                                                                    subTitle: 'delete user'
+                                                                    subTitle: 'delete user',//
+                                                                    onConfirm: () => { handleDelete(row?._id)
+}
                                                                 })
-                                                                //handleDelete(row?._id)
+
                                                             }>
 
                                                         </Button>
