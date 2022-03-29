@@ -8,7 +8,7 @@ import { Field, Form } from 'react-final-form';
 
 
 import { useTranslation } from 'react-i18next';
-import { UserProfileByAdminApi } from '../Api/UserApi';
+import { NewUserApi, UserProfileByAdminApi } from '../Api/UserApi';
 
 import { CustomerRegisterionValidation } from '../../UserAuthentication/Registerions/Utils/RegisterionsValidation';
 const EditUser = (props) => {
@@ -22,26 +22,38 @@ const EditUser = (props) => {
     const [errMessage, setErrMessage] = useState('');
     // useEffect => currentUser(id) => all info 
 
-    const [openPopup, setOpenPopup] = useState(false) // for Dilog
 
 
     const onSubmit = async (values) => {
         const id = recordForEdit?._id;
-        const response = await UserProfileByAdminApi(values, id)
-        if (!response.isSuccessful) {
-            setErrMessage(`${response.errorMessage}`)
-            console.log('err  in update profile by admin');
+        if (recordForEdit) {
+            const response = await UserProfileByAdminApi(values, id)
+            if (!response.isSuccessful) {
+                setErrMessage(`${response.errorMessage}`)
+                console.log('err  in update profile by admin');
+            }
+            else {
+                setIsLoading(false)
+                addOrEdit(values, id)
+               
+            }
         }
         else {
-            setIsLoading(false)
-            addOrEdit(values, id)
-            // navigate('/')
+            const response = await NewUserApi(values)
+            if (!response.isSuccessful) {
+                setIsLoading(true)
+                setErrMessage(`${response.errorMessage}`)
+            } else {
+               // navigate('/users')
+               setIsLoading(false)
+               addOrEdit()
+            }
         }
+
 
 
     }
     const Item = styled(Paper)(({ theme }) => ({
-        // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#ba9fc01f',
         ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'left',
@@ -74,23 +86,17 @@ const EditUser = (props) => {
                                 onSubmit={onSubmit}
                                 validate={(values) => { return CustomerRegisterionValidation(values) }}
                                 initialValues={
-                                    !!location?.state?.editFormInUser ? {
-                                        name: location?.state?.name,
-                                        email: location?.state?.email,
-                                        address: location?.state?.address,
-                                        phoneNumber: location?.state?.phoneNumber,
-                                        gender: location?.state?.gender,
-                                        education: location?.state?.education,
-
-
-                                    } : {
+                                    !!recordForEdit ? {
                                         name: recordForEdit?.name,
                                         email: recordForEdit?.email,
                                         phoneNumber: recordForEdit?.phoneNumber,
                                         education: recordForEdit?.education,
                                         address: recordForEdit?.address,
                                         gender: recordForEdit?.gender,
-                                    }}
+                                        role: recordForEdit?.role,
+
+
+                                    } : ('')}
                                 render={({ handleSubmit, submitting, pristine, values }) => (
                                     <form onSubmit={handleSubmit}>
                                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -189,7 +195,32 @@ const EditUser = (props) => {
                                                             />
 
                                                         </RadioGroup>
+                                                        <FormLabel component="legend">{t("role")}</FormLabel>
+                                                        <RadioGroup row>
+                                                            <FormControlLabel
+                                                                label={t("admin")}
+                                                                control={
+                                                                    <Field
+                                                                        name="role"
+                                                                        component={Radio}
+                                                                        type="radio"
+                                                                        value="admin"
+                                                                    />
+                                                                }
+                                                            />
+                                                            <FormControlLabel
+                                                                label={t("user")}
+                                                                control={
+                                                                    <Field
+                                                                        name="role"
+                                                                        component={Radio}
+                                                                        type="radio"
+                                                                        value="user"
+                                                                    />
+                                                                }
+                                                            />
 
+                                                        </RadioGroup>
                                                     </FormControl>
                                                 </Item>
 

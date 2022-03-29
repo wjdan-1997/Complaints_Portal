@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import { Divider, Box, Grid, CardHeader, CardContent, CircularProgress, Button, Card, FormControl, Alert, Container, FormHelperText, Typography, MenuItem, RadioGroup, FormControlLabel, FormLabel } from '@mui/material';
+import { Divider, Box, Grid, CardHeader, CardContent, CircularProgress, Button, Card, FormControl, Alert, Container, FormHelperText, Typography, MenuItem, RadioGroup, FormControlLabel, FormLabel, Paper } from '@mui/material';
 import { TextField, Select, Radio } from 'final-form-material-ui';
 import { TextField as TextFieldFinal } from 'final-form-material-ui';
 import { useNavigate, useLocation } from "react-router";
@@ -12,6 +12,7 @@ import CheckBoxField from '../../../Core/Components/CheckBox'
 import { useTranslation } from 'react-i18next';
 import { NewUserApi } from '../Api/UserApi';
 import { CustomerRegisterionValidation } from '../../UserAuthentication/Registerions/Utils/RegisterionsValidation';
+import styled from '@emotion/styled';
 const NewUser = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -28,6 +29,12 @@ const NewUser = () => {
             navigate('/users')
         }
     }
+     const Item = styled(Paper)(({ theme }) => ({
+        ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: 'left',
+        color: theme.palette.text.secondary,
+    }));
     return (
         <Box
             sx={{
@@ -38,7 +45,7 @@ const NewUser = () => {
             }}
         >
             <Container
-                maxWidth="sm"
+                maxWidth="md"
                 sx={{
                     paddingRight: 3,
                     paddingLeft: 3,
@@ -73,8 +80,9 @@ const NewUser = () => {
 
                                     render={({ handleSubmit, submitting, pristine, values }) => (
                                         <form onSubmit={handleSubmit}>
-                                            <Grid container spacing={3} mt={3}>
-                                                <Grid item md={12} xs={12} >
+                                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                            <Grid item xs={6}>
+                                                <Item>
                                                     <Field
                                                         label={t("name")}
                                                         name="name"
@@ -82,30 +90,23 @@ const NewUser = () => {
                                                         type="text"
                                                         fullWidth
                                                     />
-                                                </Grid>
-                                                <Grid item md={12} xs={12} >
-                                                    <Field
+                                                </Item>
 
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Item>
+                                                    <Field
                                                         label={t("email")}
                                                         name="email"
                                                         component={TextField}
                                                         type="email"
                                                         fullWidth
                                                     />
+                                                </Item>
 
-                                                </Grid>
-
-                                                <Grid item md={12} xs={12} >
-                                                    <Field
-                                                        label={t("password")}
-                                                        name="password"
-                                                        component={TextField}
-                                                        type="password"
-                                                        fullWidth
-
-                                                    />
-                                                </Grid>
-                                                <Grid item md={12} xs={12} >
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Item>
                                                     <Field
                                                         label={t("phone_Number")}
                                                         name="phoneNumber"
@@ -113,8 +114,11 @@ const NewUser = () => {
                                                         type="text"
                                                         fullWidth
                                                     />
-                                                </Grid>
-                                                <Grid item xs={12}>
+                                                </Item>
+
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Item>
                                                     <Field
                                                         label={t("education")}
                                                         name="education"
@@ -128,8 +132,11 @@ const NewUser = () => {
 
                                                         <MenuItem value="PhD">{t("PhD")}</MenuItem>
                                                     </Field>
-                                                </Grid>
-                                                <Grid item className="custom-label-field" >
+                                                </Item>
+
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Item>
                                                     <FormControl component="fieldset">
                                                         <FormLabel component="legend">{t("gender")}</FormLabel>
                                                         <RadioGroup row>
@@ -184,9 +191,11 @@ const NewUser = () => {
 
                                                         </RadioGroup>
                                                     </FormControl>
-                                                </Grid>
+                                                </Item>
 
-                                                <Grid item md={12} xs={12}>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Item>
                                                     <Field
                                                         label={t("address")}
                                                         name="address"
@@ -195,32 +204,31 @@ const NewUser = () => {
                                                         type="text"
                                                         fullWidth
                                                     />
-                                                </Grid>
+                                                </Item>
 
                                             </Grid>
-                                            <Grid container spacing={4} mt={3}>
-                                                
-                                                <Grid item md={12} xs={12}>
-                                                    <Button
+                                        </Grid>
+                                        <br /><br />
+                                        <Grid item md={12} xs={12}>
+                                            <Button
+                                                disabled={submitting || pristine}
+                                                variant="contained"
+                                                color="secondary"
+                                                type="submit"
 
-                                                        disabled={submitting || pristine}
-                                                        variant="contained"
-                                                        color="secondary"
-                                                        type="submit"
-                                                        sx={{
+                                                sx={{
+                                                    borderRadius: '5em',
+                                                    width: '100%',
+                                                    margin: '0 auto',
+                                                    backgroundColor: '#9c27b0'
+                                                }}
+                                            >
+                                                {t("send")}
+                                            </Button>
 
-                                                            borderRadius: '5em',
-                                                            width: '100%',
-                                                            margin: '0 auto',
-                                                            backgroundColor: '#9c27b0'
-                                                        }}
-                                                    >
-                                                        {t('add_btn')}
-                                                    </Button>
-                                                </Grid>
-                                            </Grid >
-                                            <pre>{JSON.stringify(values, 0, 2)}</pre>
-                                        </form>
+                                        </Grid>
+                                       
+                                    </form>
                                     )}
                                 />
 

@@ -192,7 +192,7 @@ userProfile = async (req, res) => {
 
 // update user only allowed by admin 
 updateUser = async (req, res) => {
-    const { name, email, education, phoneNumber, gender, address, passwordReceived } = req.body;
+    const { name, email, education, phoneNumber, gender, address, passwordReceived, role } = req.body;
 
     const isAdmin = req.user.role == 'admin';
     const id = req.params.id;
@@ -229,6 +229,7 @@ updateUser = async (req, res) => {
     data.gender = gender
     data.address = address
     data.password = passwordHash;
+    data.role = role
     data.save()
         .then(user => res.json({ responseBody: user }))
 

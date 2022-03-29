@@ -194,7 +194,7 @@ const Compalint = () => {
                                         label="status"
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value='dismissed'>{t("dismissed")}</MenuItem>
+                                        <MenuItem value='rejected'>{t("rejected")}</MenuItem>
                                         <MenuItem value='resolution'>{t("resolution")}</MenuItem>
                                         <MenuItem value='resolved'>{t("resolved")}</MenuItem>
                                     </Select>

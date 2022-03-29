@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { Typography,Card,Paper, } from '@mui/material';
+import { Typography, Card, Paper, } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useTheme } from '@mui/material/styles';
 
 
 const useStyles = makeStyles(() => ({
     root: {
-        backgroundColor: '#fdfdff'
+        backgroundColor: '#fdfdff',
+        // width:'400px',
+        // borderRadius:'22px ',
+        // border:'1px '
     },
     pageHeader: {
         padding: useTheme().spacing(4),
@@ -37,25 +40,28 @@ const useStyles = makeStyles(() => ({
 
 export default function PageHeader(props) {
     const classes = useStyles();
-    
-        const { title, subTitle, icon } = props;
-        return (
-            <Paper elevation={0} square className={classes.root}>
-                <div className={classes.pageHeader}>
-                    <Card className={classes.pageIcon}>
-                        {icon}
-                    </Card>
-                    <div className={classes.pageTitle}>
-                        <Typography
-                            variant="h6"
-                            component="div">
-                            {title}</Typography>
-                        <Typography
-                            variant="subtitle2"
-                            component="div">
-                            {subTitle}</Typography>
-                    </div>
+
+    const { title, subTitle, icon, totalPendingRequests, totalResolveRequests, totalresolutionRequests } = props;
+
+    return (
+        <Card elevation={0} square className={classes.root}>
+            <div className={classes.pageHeader}>
+                <Card className={classes.pageIcon}>
+                    {icon}
+                </Card>
+                <div className={classes.pageTitle}>
+                    
+                    <Typography
+                        variant="h6"
+                        component="div">
+                        {title}
+                    </Typography>
+                    <Typography
+                        variant="subtitle2"
+                        component="div">
+                        {subTitle}</Typography>
                 </div>
-            </Paper>
-        )
-    }
+            </div>
+        </Card>
+    )
+}

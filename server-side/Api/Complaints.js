@@ -60,8 +60,16 @@ retrieveComplaint = async (req, res) => {
         if (err) {
             return res.status(400).json({ success: false, errorMessage: err })
         }
+        const request = {
+            pending: data.filter(x => x.status == "Pending").length,
+            resolution: data.filter(x => x.status == "resolution").length,
+            resolved: data.filter(x => x.status == "resolved").length,
+            rejected: data.filter(x => x.status == "rejected").length
 
-        return res.status(200).json({ success: true, responseBody: data })
+        }
+
+        console.log('check here', data.length, 'Allll status',request);
+        return res.status(200).json({ success: true, responseBody: data, status: request })
     }).clone().catch(err => console.log(err))
 
     return data;

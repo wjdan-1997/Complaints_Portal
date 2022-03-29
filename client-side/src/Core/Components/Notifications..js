@@ -6,7 +6,8 @@ import { useTheme } from '@mui/material/styles';
 const useStyles = makeStyles(() => ({
     root: {
         top: useTheme().spacing(9)
-    }
+    },
+    backgrounColor: '#1f7d4c'
 }))
 
 export default function Notifications(props) {
@@ -23,14 +24,15 @@ export default function Notifications(props) {
     return (
         <Snackbar
             className={classes.root}
+            sx={{ padding: '54px' }}
             open={notification.isOpen}
             autoHideDuration={3000}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            onClose={handleClose}
+        //onClose={handleClose}
         >
             <Alert
                 severity={notification.type}
-               onClose={handleClose}
+            // onClose={handleClose}
             >
                 {notification.message}
             </Alert>

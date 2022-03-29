@@ -76,21 +76,35 @@ const ViewUsers = () => {
     const [notification, setNotification] = useState({ isOpen: false, title: '', subTitle: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
 
-    const addOrEdit = (values, id) => {
-        
+    const addOrEdit = async (values, id) => {
+
         setOpenPopup(false)
+        //setIsLoading(true)
+        // const response = await ApiGetRequest('users/getUsers')
+        // if (!response.isSuccessful) {
+        //     setIsLoading(true)
+        //     console.log('users is not found...');
+
+        // } else {
+        //     setUsers(response?.data?.responseBody)
+        //     console.log('users======', users);
+        //     setIsLoading(false)
+        // }
         const updateUserIndex = users.findIndex(e => e._id == id);
         console.log('updateUserIndex:', updateUserIndex)
         users[updateUserIndex] = { ...values }
-        setRecordForEdit(null)
+        setIsLoading(true)
         setUsers(users)
+        setIsLoading(false)
+        //setRecordForEdit(null)
+
         console.log('esh this new users ', users);
         setNotification({
             isOpen: true,
             message: 'Submitted Successfully',
             type: 'success'
         })
-       
+
     }
 
     const openInPopup = row => {
@@ -159,7 +173,8 @@ const ViewUsers = () => {
                         style={{ textTransform: 'none' }}
                         startIcon={<AddBoxIcon />}
                         className={classes.newButton}
-                        onClick={() => navigate('/newUser')}>
+                        // onClick={() => navigate('/newUser')}
+                        onClick={() => openInPopup()}>
                         {t('add_new_user')}
                     </Button>
 
@@ -200,7 +215,7 @@ const ViewUsers = () => {
                                                         {row?.phoneNumber}
                                                     </TableCell>
                                                     <TableCell sx={{ paddingLeft: '111px' }}>
-                                                        
+
                                                         <Button
                                                             variant="outlined"
                                                             color="primary"
@@ -226,8 +241,9 @@ const ViewUsers = () => {
                                                                 setConfirmDialog({
                                                                     isOpen: true,
                                                                     title: 'Are you sure to delete this user !',
-                                                                    onConfirm: () => { handleDelete(row?._id)
-}
+                                                                    onConfirm: () => {
+                                                                        handleDelete(row?._id)
+                                                                    }
                                                                 })
 
                                                             }>
@@ -270,6 +286,7 @@ const ViewUsers = () => {
                 setOpenPopup={setOpenPopup}
 
             >
+                {/* children */}
                 <EditUser
                     recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit}

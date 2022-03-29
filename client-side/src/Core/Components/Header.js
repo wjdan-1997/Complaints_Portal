@@ -97,6 +97,7 @@ function ResponsiveDrawer(props) {
             <AppBar
                 position="fixed"
                 sx={{
+                    // padding:'15px',
                     backgroundColor: '#1f7d4c',
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
                     ml: { sm: `${drawerWidth}px` },
