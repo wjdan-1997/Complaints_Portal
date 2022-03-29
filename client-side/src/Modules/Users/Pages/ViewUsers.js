@@ -30,7 +30,7 @@ import EditProfile from './EditProfile';
 import EditUser from './EditUser';
 import Notifications from '../../../Core/Components/Notifications.';
 import ConfirmDialog from '../../../Core/Components/ConfirmDialog';
-const theme = createTheme();
+
 
 const useStyles = makeStyles(() => ({
     root: {
