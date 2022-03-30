@@ -12,7 +12,7 @@ import { NewUserApi, UserProfileByAdminApi } from '../Api/UserApi';
 
 import { CustomerRegisterionValidation } from '../../UserAuthentication/Registerions/Utils/RegisterionsValidation';
 const EditUser = (props) => {
-    const { recordForEdit, addOrEdit } = props
+    const { recordForEdit, addOrEdit, addUserForm } = props
     console.log('iddddddd=>>>>>>', recordForEdit?._id);
 
     const location = useLocation();
@@ -30,23 +30,21 @@ const EditUser = (props) => {
             const response = await UserProfileByAdminApi(values, id)
             if (!response.isSuccessful) {
                 setErrMessage(`${response.errorMessage}`)
-                console.log('err  in update profile by admin');
+                console.log('err  in update user profile by admin');
             }
             else {
                 setIsLoading(false)
                 addOrEdit(values, id)
-               
+
             }
         }
         else {
             const response = await NewUserApi(values)
             if (!response.isSuccessful) {
-                setIsLoading(true)
                 setErrMessage(`${response.errorMessage}`)
             } else {
-               // navigate('/users')
-               setIsLoading(false)
-               addOrEdit()
+                setIsLoading(false)
+                addOrEdit()
             }
         }
 
@@ -253,7 +251,6 @@ const EditUser = (props) => {
                                                     borderRadius: '5em',
                                                     width: '100%',
                                                     margin: '0 auto',
-                                                    // backgroundColor: '#9c27b0'
                                                 }}
                                             >
                                                 {t("send")}

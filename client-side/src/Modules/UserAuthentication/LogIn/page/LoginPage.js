@@ -47,7 +47,7 @@ const Login = () => {
     return (
         <Box
             sx={{
-                backgroundColor: '#fafafa',
+                //backgroundColor: '#fafafa',
                 width: 'auto',
                 height: "auto",
                 backgroundSize: "cover"
@@ -73,7 +73,13 @@ const Login = () => {
                 }}>
 
                     <Box sx={{ mb: 3, textAlign: 'center', paddingTop: '55px', margin: '0px' }}>
-                        <Typography variant="h6" gutterBottom component="div" align="center">{t('login')}</Typography>
+                        <Typography variant="h4" gutterBottom component="div" align="center">
+                            Log in to your Complaint account
+
+                        </Typography>
+                        <Typography variant="p" gutterBottom component="div" align="center">
+                            Please enter your email and password:
+                        </Typography>
 
                     </Box>
                     <CardContent sx={{ padding: "30px", paddingTop: '0' }}>
@@ -115,13 +121,11 @@ const Login = () => {
                                                 <Button
                                                     disabled={submitting || pristine}
                                                     variant="contained"
-                                                    color="secondary"
                                                     type="submit"
                                                     sx={{
                                                         borderRadius: '5em',
                                                         width: '100%',
                                                         margin: '0 auto',
-                                                        backgroundColor: '#9c27b0'
                                                     }}
                                                 >
                                                     {t("login")}

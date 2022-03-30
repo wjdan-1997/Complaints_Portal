@@ -58,32 +58,54 @@ function ResponsiveDrawer(props) {
             <br />
             <ListItem >
                 <ListItemIcon>
-                    <Avatar> < PermIdentityIcon fontSize='large'/></Avatar>
-                   
+                    <Avatar sx={{
+                        backgroundColor: '#1f7d4c',
+                        height: 46,
+                        width: 46
+                    }}> < PermIdentityIcon fontSize='large' /></Avatar>
+
                 </ListItemIcon>
                 <ListItemText primary={name} />
             </ListItem>
             <Divider />
             <List>
+                {role == 'admin' ? (
 
-                <ListItem button component={Link} to="/users">
-                    <ListItemIcon>
-                        < GroupIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={t("view_all_users")} />
-                </ListItem>
+                    <ListItem button component={Link} to="/users">
+                        <ListItemIcon>
+                            < GroupIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={t("view_all_users")} />
+                    </ListItem>
+                ) : (
+                <>
+                            <ListItem button component={Link} to="/complaint/new">
+                                <ListItemIcon>
+                                    <ListAltIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={t("create_complaint")} />
+                            </ListItem>
+                </>
+                )}
+
+
                 <ListItem button component={Link} to="/">
                     <ListItemIcon>
                         <ListAltIcon />
                     </ListItemIcon>
                     <ListItemText primary={t("view_all_complaint")} />
                 </ListItem>
-                <ListItem button component={Link} to="/signin" onClick={() => handleLogout()}>
-                    <ListItemIcon>
-                        <LogoutIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={t("Sign_Out")} />
-                </ListItem>
+
+                {role == 'admin' ? (
+                    <ListItem button component={Link} to="/signin" onClick={() => handleLogout()}>
+                        <ListItemIcon>
+                            <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={t("Sign_Out")} />
+                    </ListItem>
+                ) : ('')}
+
+
             </List>
             <Divider />
         </div>
@@ -92,7 +114,8 @@ function ResponsiveDrawer(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box
+            sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar
                 position="fixed"
@@ -113,7 +136,7 @@ function ResponsiveDrawer(props) {
                                 sx={{
                                     color: 'white',
                                     '&:hover': {
-                                        backgroundColor: '#f2f2f2'
+                                        backgroundColor: '#bad7c8'
                                     }
                                 }}
 
@@ -122,53 +145,63 @@ function ResponsiveDrawer(props) {
                         </Grid>
                         <Grid item sm></Grid>
                         <Grid item>
-                            {!!role == 'admin' ? (<FormControl variant="outlined">
-                                <InputLabel >{t('account')}
-                                </InputLabel>
-                                <Select
+                            {role == 'user' ? (
+                                <FormControl variant="outlined">
+                                    <InputLabel >{t('account')}
+                                    </InputLabel>
+                                    <Select
 
-                                    sx={{ borderRadius: 2, color: 'success.dark', borderColor: 'white', width: 100, paddingTop: '4px', marginRight: '8px' }}>
+                                        sx={{
+                                            borderRadius: 2,
+                                            color: 'success.dark',
+                                            borderColor: 'white',
+                                            width: 100, paddingTop: '4px',
+                                            marginRight: '8px'
+                                        }}>
 
-                                    <MenuItem component="a" href="/userProfile">{t('profile')}
-                                        <IconButton>
-                                            <Badge>
-                                                <ManageAccountsIcon fontSize="small" />
-                                            </Badge>
-                                        </IconButton>
-                                    </MenuItem>
-                                    <MenuItem component="a" href="/changePassword">{t('change_password')}
-                                        <IconButton>
-                                            <Badge>
-                                                <PublishedWithChangesIcon fontSize="small" />
-                                            </Badge>
-                                        </IconButton>
-                                    </MenuItem>
-                                    <MenuItem component="a" href="/signin" onClick={() => handleLogout()}> {t("Sign_Out")}
-                                        <IconButton>
-                                            <Badge>
-                                                <LogoutIcon fontSize="small" />
-                                            </Badge>
-                                        </IconButton>
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleClick('ar')}>
-                                        {t('ar')}
-                                        <IconButton>
-                                            <Badge>
-                                                <LanguageIcon fontSize="small" />
-                                            </Badge>
-                                        </IconButton>
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleClick('en')}>
-                                        {t('en')}
-                                        <IconButton>
-                                            <Badge>
-                                                <LanguageIcon fontSize="small" />
-                                            </Badge>
-                                        </IconButton>
-                                    </MenuItem>
+                                        <MenuItem component="a" href="/userProfile">{t('profile')}
+                                            <IconButton>
+                                                <Badge>
+                                                    <ManageAccountsIcon fontSize="small" />
+                                                </Badge>
+                                            </IconButton>
+                                        </MenuItem>
+                                        <MenuItem component="a" href="/changePassword">{t('change_password')}
+                                            <IconButton>
+                                                <Badge>
+                                                    <PublishedWithChangesIcon fontSize="small" />
+                                                </Badge>
+                                            </IconButton>
+                                        </MenuItem>
+                                        <MenuItem component="a" href="/signin" onClick={() => handleLogout()}> {t("Sign_Out")}
+                                            <IconButton>
+                                                <Badge>
+                                                    <LogoutIcon fontSize="small" />
+                                                </Badge>
+                                            </IconButton>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleClick('ar')}>
+                                            {t('ar')}
+                                            <IconButton>
+                                                <Badge>
+                                                    <LanguageIcon fontSize="small" />
+                                                </Badge>
+                                            </IconButton>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleClick('en')}>
+                                            {t('en')}
+                                            <IconButton>
+                                                <Badge>
+                                                    <LanguageIcon fontSize="small" />
+                                                </Badge>
+                                            </IconButton>
+                                        </MenuItem>
 
-                                </Select>
-                            </FormControl>) : ('')}
+                                    </Select>
+                                </FormControl>
+                            ) :
+                                ('')
+                            }
 
 
 

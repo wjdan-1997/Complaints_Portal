@@ -77,27 +77,12 @@ const ViewUsers = () => {
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
 
     const addOrEdit = async (values, id) => {
-
-        setOpenPopup(false)
-        //setIsLoading(true)
-        // const response = await ApiGetRequest('users/getUsers')
-        // if (!response.isSuccessful) {
-        //     setIsLoading(true)
-        //     console.log('users is not found...');
-
-        // } else {
-        //     setUsers(response?.data?.responseBody)
-        //     console.log('users======', users);
-        //     setIsLoading(false)
-        // }
-        const updateUserIndex = users.findIndex(e => e._id == id);
-        console.log('updateUserIndex:', updateUserIndex)
-        users[updateUserIndex] = { ...values }
         setIsLoading(true)
-        setUsers(users)
-        setIsLoading(false)
-        //setRecordForEdit(null)
+        const response = await ApiGetRequest('users/getUsers')
 
+        setUsers(response?.data?.responseBody)
+        setIsLoading(false)
+        setOpenPopup(false)
         console.log('esh this new users ', users);
         setNotification({
             isOpen: true,
@@ -288,6 +273,7 @@ const ViewUsers = () => {
             >
                 {/* children */}
                 <EditUser
+
                     recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit}
                 />

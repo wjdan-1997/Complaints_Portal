@@ -58,7 +58,13 @@ const CustomerRegisterion = () => {
                     boxShadow: '5px 10px 18px #ecf1f5'
                 }}>
                     <Box sx={{ mb: 3, textAlign: 'center', paddingTop: '55px', margin: '0px' }}>
-                        <Typography variant="h5" gutterBottom component="div" align="center">{t('user_Registration_Form')} </Typography>
+                        <Typography variant="h5" gutterBottom component="div" align="center">
+                            {t('Registration')}
+                        </Typography>
+
+                        <Typography variant="p" gutterBottom component="div" align="center">
+                            Join to Inspire Complaints Management Portal
+                        </Typography>
                     </Box>
                     <CardContent sx={{ padding: "30px", paddingTop: '0' }}>
                         {errMessage && (
@@ -197,16 +203,17 @@ const CustomerRegisterion = () => {
                                                     }}
                                                 >
                                                     {t('update_btn')}
-                                                </Button> : <Button
+                                                </Button> :
+                                                 <Button
                                                     disabled={submitting || pristine}
                                                     variant="contained"
-                                                    color="secondary"
+                                                   // color="secondary"
                                                     type="submit"
                                                     sx={{
                                                         borderRadius: '5em',
                                                         width: '100%',
                                                         margin: '0 auto',
-                                                        backgroundColor: '#9c27b0'
+                                                       // backgroundColor: '#9c27b0'
                                                     }}
                                                 >
                                                     {t('register_btn')}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-
-import { Divider, CardContent, CircularProgress, Button, Card, Alert, Container, Typography } from '@mui/material';
+import { Helmet } from 'react-helmet';
+import { Divider, CardContent, CircularProgress, Button, Card, Alert, Container, Typography, Grid, Box } from '@mui/material';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -19,6 +19,7 @@ import PageHeader from '../../../Core/Components/PageHeader';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PageCard from '../../../Core/Components/PageCard';
+import TotalPending from '../../../Core/Components/PageCard';
 
 const ViewComplaints = () => {
     const [t] = useTranslation('common')
@@ -26,9 +27,10 @@ const ViewComplaints = () => {
     const navigate = useNavigate()
     const [complaints, setComplaints] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [loadingStatus, setIsLoadingStatus] = useState(false)
     const [pending, setPending] = useState(0)
-    const [resolved, setResolved] = useState()
-    const [resolution, setResolution] = useState()
+    const [resolved, setResolved] = useState(0)
+    const [rejected, setRejected] = useState(0)
 
 
     useEffect(async () => {
@@ -43,14 +45,14 @@ const ViewComplaints = () => {
 
             setPending(response?.data?.status?.pending)
             setResolved(response?.data?.status?.resolved)
-            setResolution(response?.data?.status?.resolution)
+            setRejected(response?.data?.status?.rejected)
+            setIsLoadingStatus(true)
             setIsLoading(false)
         }
     }, []);
 
     console.log('pending', pending,);
     console.log('resolved', resolved,);
-    console.log('solution', resolution,);
 
     const handleComplaint = async (id) => {
         const response = await ApiGetRequest(`complaints/${id}`)
@@ -63,19 +65,14 @@ const ViewComplaints = () => {
     const propStyle = { padding: '15px 15px' }
     return (
         <>
-            <PageCard
-                title={t("user_management")}
-                subTitle={t("control_your_users")}
-                icon={<PendingActionsIcon fontSize="large" />}
-            />
-             <PageCard
-                title={t("user_management")}
-                subTitle={resolution}
-                icon={<PendingActionsIcon fontSize="large" />}
-            />
+        <Helmet>
+          <title>Dashboard</title>
+        </Helmet>
+            <PageCard loading={loadingStatus} totalpending={pending} totalrejected={rejected} toltalresolved={resolved} />
+
             <Container maxWidth='lg' style={propStyle}>
 
-                {/* <Typography variant="h6" gutterBottom component="div" align="left"> {t("hello")}  {isUserLogin} </Typography> */}
+             
                 <Typography variant="h6" gutterBottom component="div" align="left"> </Typography>
 
 

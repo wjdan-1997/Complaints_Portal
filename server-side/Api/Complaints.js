@@ -62,7 +62,7 @@ retrieveComplaint = async (req, res) => {
         }
         const request = {
             pending: data.filter(x => x.status == "Pending").length,
-            resolution: data.filter(x => x.status == "resolution").length,
+            solved: data.filter(x => x.status == "solved").length,
             resolved: data.filter(x => x.status == "resolved").length,
             rejected: data.filter(x => x.status == "rejected").length
 

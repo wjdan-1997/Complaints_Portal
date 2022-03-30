@@ -28,11 +28,11 @@ export default function Notifications(props) {
             open={notification.isOpen}
             autoHideDuration={3000}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        //onClose={handleClose}
+            onClose={handleClose}
         >
             <Alert
                 severity={notification.type}
-            // onClose={handleClose}
+            onClose={handleClose}
             >
                 {notification.message}
             </Alert>

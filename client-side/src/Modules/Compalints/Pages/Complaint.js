@@ -195,20 +195,22 @@ const Compalint = () => {
                                         onChange={handleChange}
                                     >
                                         <MenuItem value='rejected'>{t("rejected")}</MenuItem>
-                                        <MenuItem value='resolution'>{t("resolution")}</MenuItem>
+                                        <MenuItem value='solved'>{t("solved")}</MenuItem> 
                                         <MenuItem value='resolved'>{t("resolved")}</MenuItem>
                                     </Select>
                                 </FormControl>
                                 <br /><br />
 
                                 <Grid item xs={8}>
-                                    <Button variant="contained" color="secondary"
-                                        sx={{
-                                            borderRadius: '5em',
-                                            width: '100%',
-                                            margin: '0 auto',
-                                            backgroundColor: '#9c27b0',
-                                        }}
+                                    <Button v variant="outlined"
+                                                color="secondary"
+                                                type="submit"
+                                                sx={{
+                                                    borderRadius: '5em',
+                                                    width: '100%',
+                                                    margin: '0 auto',
+
+                                                }}
                                         onClick={() => handleSubmit()}>
                                         {t("update")}
                                     </Button>

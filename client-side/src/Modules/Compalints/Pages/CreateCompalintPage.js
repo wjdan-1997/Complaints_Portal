@@ -65,11 +65,10 @@ const CreateCompalint = () => {
         return msg
     }
     console.log(location?.state?.editForm);
-    const propStyle = { padding: '15px 15px', }
     return (
         <Box
             sx={{
-                backgroundColor: '#fafafa',
+                //  backgroundColor: '#fafafa',
                 width: '100%',
                 height: "100%",
                 backgroundSize: "cover"
@@ -215,20 +214,20 @@ const CreateCompalint = () => {
                                                     <Button
                                                         disabled={submitting || pristine}
                                                         variant="contained"
-                                                        color="secondary"
+                                                        //color="secondary"
                                                         type="submit"
                                                         sx={{
                                                             borderRadius: '5em',
                                                             width: '100%',
                                                             margin: '0 auto',
-                                                            backgroundColor: '#b5099b'
+                                                            //backgroundColor: '#b5099b'
                                                         }}
                                                     >
                                                         {t("create")}
                                                     </Button>
                                                 </Grid>
                                             </Grid >
-                                            <pre>{JSON.stringify(values, 0, 2)}</pre>
+                                            {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
                                         </form>
                                     )}
                                 />
