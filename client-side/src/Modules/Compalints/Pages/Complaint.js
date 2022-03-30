@@ -195,7 +195,7 @@ const Compalint = () => {
                                         onChange={handleChange}
                                     >
                                         <MenuItem value='rejected'>{t("rejected")}</MenuItem>
-                                        <MenuItem value='solved'>{t("solved")}</MenuItem> 
+                                        <MenuItem value='pending'>{t("pending")}</MenuItem> 
                                         <MenuItem value='resolved'>{t("resolved")}</MenuItem>
                                     </Select>
                                 </FormControl>

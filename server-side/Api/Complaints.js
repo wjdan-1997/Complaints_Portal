@@ -129,7 +129,6 @@ updateComplaint = async (req, res) => {
             .json({ errorMessage: "you dont have primaitions" })
     }
     else {
-
         data.subject = subject;
         data.complainType = complainType;
         data.preferedLanguage = preferedLanguage;

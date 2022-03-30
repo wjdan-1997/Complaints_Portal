@@ -67,11 +67,6 @@ const EditUser = (props) => {
         >
             <Container maxWidth="md">
 
-                {/* <Box sx={{ mb: 3, textAlign: 'center', paddingTop: '55px', margin: '0px' }}>
-                        <Typography variant="h5" gutterBottom component="div" align="center">{t('user_profile')} </Typography>
-                    </Box>
-                    <Divider /> */}
-
                 <CardContent sx={{ padding: "30px", paddingTop: '22px' }}>
                     {errMessage && (
                         <Alert variant="outlined" severity="error">
@@ -112,13 +107,20 @@ const EditUser = (props) => {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <Item>
-                                                    <Field
-                                                        label={t("email")}
-                                                        name="email"
-                                                        component={TextField}
-                                                        type="email"
-                                                        fullWidth
-                                                    />
+                                                <Field
+                                                        label={t("education")}
+                                                        name="education"
+                                                        component={Select}
+                                                        formControlProps={{ fullWidth: true }}
+                                                    >
+                                                        <MenuItem value="Bachelors">{t("Bachelors")}</MenuItem>
+                                                        <br />
+                                                        <MenuItem value="Master">{t("Master")}</MenuItem>
+                                                        <br />
+
+                                                        <MenuItem value="PhD">{t("PhD")}</MenuItem>
+                                                    </Field>
+                                                    
                                                 </Item>
 
                                             </Grid>
@@ -148,19 +150,13 @@ const EditUser = (props) => {
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <Item>
-                                                    <Field
-                                                        label={t("education")}
-                                                        name="education"
-                                                        component={Select}
-                                                        formControlProps={{ fullWidth: true }}
-                                                    >
-                                                        <MenuItem value="Bachelors">{t("Bachelors")}</MenuItem>
-                                                        <br />
-                                                        <MenuItem value="Master">{t("Master")}</MenuItem>
-                                                        <br />
-
-                                                        <MenuItem value="PhD">{t("PhD")}</MenuItem>
-                                                    </Field>
+                                                <Field
+                                                        label={t("email")}
+                                                        name="email"
+                                                        component={TextField}
+                                                        type="email"
+                                                        fullWidth
+                                                    />
                                                 </Item>
 
                                             </Grid>
@@ -193,6 +189,28 @@ const EditUser = (props) => {
                                                             />
 
                                                         </RadioGroup>
+                                                       
+                                                    </FormControl>
+                                                </Item>
+
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                               
+                                                <Item>
+                                                    <Field
+                                                        label={t("address")}
+                                                        name="address"
+                                                        component={TextField}
+                                                        multiline
+                                                        type="text"
+                                                        fullWidth
+                                                    />
+                                                </Item>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                            <Item>
+                                                    <FormControl component="fieldset">
+                                                        
                                                         <FormLabel component="legend">{t("role")}</FormLabel>
                                                         <RadioGroup row>
                                                             <FormControlLabel
@@ -220,19 +238,6 @@ const EditUser = (props) => {
 
                                                         </RadioGroup>
                                                     </FormControl>
-                                                </Item>
-
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <Item>
-                                                    <Field
-                                                        label={t("address")}
-                                                        name="address"
-                                                        component={TextField}
-                                                        multiline
-                                                        type="text"
-                                                        fullWidth
-                                                    />
                                                 </Item>
 
                                             </Grid>

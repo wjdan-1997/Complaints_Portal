@@ -16,7 +16,7 @@ const ChangePassword = () => {
     const [errMessage, setErrMessage] = useState('');
     const { id } = getCurrentUser()
     const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#ba9fc01f',
+     //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#ba9fc01f',
         ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'left',
@@ -95,14 +95,14 @@ const ChangePassword = () => {
                                             <Button
                                                 disabled={submitting || pristine}
                                                 variant="contained"
-                                                color="secondary"
+                                               // color="secondary"
                                                 type="submit"
 
                                                 sx={{
                                                     borderRadius: '5em',
                                                     width: '100%',
                                                     margin: '0 auto',
-                                                    backgroundColor: '#9c27b0'
+                                                   // backgroundColor: '#9c27b0'
                                                 }}
                                             >
                                                 {t("send")}

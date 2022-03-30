@@ -29,6 +29,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import { getCurrentUser, userLogout } from './useLocalStorage';
 import i18nextInit from '../../Core/Contexts/Translate/i18nextInit'
 import Logo from './Logo';
+import Language from '@mui/icons-material/Language';
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -40,11 +41,35 @@ function ResponsiveDrawer(props) {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-    const handleClick = (lang) => {
-        console.log(`Changed to ${lang}`);
-        i18nextInit.changeLanguage(lang)
-    };
+    const [LanguageState, setLanguageState] = React.useState(localStorage.getItem("i18nextLng") == 'ar' ? 'english' : 'العربيه')
+    const [changeLanguage, setchangeLanguage] = React.useState('change languages')
 
+
+    const handleClick = () => {
+        const lang = localStorage.getItem("i18nextLng");
+        console.log(typeof (lang), lang, 'what', lang == 'en');
+
+        if (lang == 'en') {
+            setchangeLanguage('تغير اللغه')
+            setLanguageState('english')
+            i18nextInit.changeLanguage('ar')
+        } else if (lang == 'ar') {
+            setchangeLanguage('change languages')
+            setLanguageState('العربيه')
+            i18nextInit.changeLanguage('en')
+        }
+        console.log(`Changed to ${lang}`);
+
+    };
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+    ]
+
+    const MyComponent = () => (
+        <Select options={options} />
+    )
     const handleLogout = () => {
         userLogout()
     };
@@ -78,14 +103,14 @@ function ResponsiveDrawer(props) {
                         <ListItemText primary={t("view_all_users")} />
                     </ListItem>
                 ) : (
-                <>
-                            <ListItem button component={Link} to="/complaint/new">
-                                <ListItemIcon>
-                                    <ListAltIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={t("create_complaint")} />
-                            </ListItem>
-                </>
+                    <>
+                        <ListItem button component={Link} to="/complaint/new">
+                            <ListItemIcon>
+                                <ListAltIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={t("create_complaint")} />
+                        </ListItem>
+                    </>
                 )}
 
 
@@ -180,16 +205,9 @@ function ResponsiveDrawer(props) {
                                                 </Badge>
                                             </IconButton>
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleClick('ar')}>
-                                            {t('ar')}
-                                            <IconButton>
-                                                <Badge>
-                                                    <LanguageIcon fontSize="small" />
-                                                </Badge>
-                                            </IconButton>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => handleClick('en')}>
-                                            {t('en')}
+
+                                        <MenuItem onClick={() => handleClick()}>
+                                            {changeLanguage} {LanguageState}
                                             <IconButton>
                                                 <Badge>
                                                     <LanguageIcon fontSize="small" />
@@ -207,7 +225,7 @@ function ResponsiveDrawer(props) {
 
 
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="select-multiple-chip"> {t('languages')}</InputLabel>
                                 <Select sx={{ borderRadius: 2, color: 'black', borderColor: 'white', width: 100, paddingTop: '4px', marginRight: '8px' }}>
@@ -217,7 +235,7 @@ function ResponsiveDrawer(props) {
                                 </Select>
                             </FormControl>
 
-                        </Grid>
+                        </Grid> */}
 
                     </Grid>
                 </Toolbar>

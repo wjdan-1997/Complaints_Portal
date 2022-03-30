@@ -34,8 +34,6 @@ export default function LoginNavbar() {
                         {t('title')}
                     </Typography>
 
-
-
                     <Button
                         href="/signin"
                         startIcon={<LoginIcon/>}
