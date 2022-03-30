@@ -60,6 +60,9 @@
     "all_users": "جميع المستخدمين",
     "role": "النوع",
     "action":"الاجراء",
+    "Rejected_Request":"الطلبات  المرفوضه",
+    "Pending_Request":"الطلبات قيد المراجعة ",
+    "Resolved_Request":"الطلبات المكتملة    ",
 
     "languages": "اللغات",
     "user_profile": "الملف الشخصي",

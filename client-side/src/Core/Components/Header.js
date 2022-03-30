@@ -30,6 +30,7 @@ import { getCurrentUser, userLogout } from './useLocalStorage';
 import i18nextInit from '../../Core/Contexts/Translate/i18nextInit'
 import Logo from './Logo';
 import Language from '@mui/icons-material/Language';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -42,7 +43,7 @@ function ResponsiveDrawer(props) {
         setMobileOpen(!mobileOpen);
     };
     const [LanguageState, setLanguageState] = React.useState(localStorage.getItem("i18nextLng") == 'ar' ? 'english' : 'العربيه')
-    const [changeLanguage, setchangeLanguage] = React.useState('change languages')
+    const [changeLanguage, setchangeLanguage] = React.useState('Change Language')
 
 
     const handleClick = () => {
@@ -51,10 +52,10 @@ function ResponsiveDrawer(props) {
 
         if (lang == 'en') {
             setchangeLanguage('تغير اللغه')
-            setLanguageState('english')
+            setLanguageState('English')
             i18nextInit.changeLanguage('ar')
         } else if (lang == 'ar') {
-            setchangeLanguage('change languages')
+            setchangeLanguage('Change Languages')
             setLanguageState('العربيه')
             i18nextInit.changeLanguage('en')
         }
@@ -106,7 +107,7 @@ function ResponsiveDrawer(props) {
                     <>
                         <ListItem button component={Link} to="/complaint/new">
                             <ListItemIcon>
-                                <ListAltIcon />
+                                <NoteAddIcon />
                             </ListItemIcon>
                             <ListItemText primary={t("create_complaint")} />
                         </ListItem>
@@ -184,35 +185,39 @@ function ResponsiveDrawer(props) {
                                             marginRight: '8px'
                                         }}>
 
-                                        <MenuItem component="a" href="/userProfile">{t('profile')}
+                                        <MenuItem component="a" href="/userProfile">
                                             <IconButton>
                                                 <Badge>
                                                     <ManageAccountsIcon fontSize="small" />
                                                 </Badge>
                                             </IconButton>
+                                            {t('profile')}
                                         </MenuItem>
-                                        <MenuItem component="a" href="/changePassword">{t('change_password')}
+                                        <MenuItem component="a" href="/changePassword">
                                             <IconButton>
                                                 <Badge>
                                                     <PublishedWithChangesIcon fontSize="small" />
                                                 </Badge>
                                             </IconButton>
+                                            {t('change_password')}
                                         </MenuItem>
-                                        <MenuItem component="a" href="/signin" onClick={() => handleLogout()}> {t("Sign_Out")}
+                                        <MenuItem component="a" href="/signin" onClick={() => handleLogout()}>
                                             <IconButton>
                                                 <Badge>
                                                     <LogoutIcon fontSize="small" />
                                                 </Badge>
                                             </IconButton>
+                                            {t("Sign_Out")}
                                         </MenuItem>
 
                                         <MenuItem onClick={() => handleClick()}>
-                                            {changeLanguage} {LanguageState}
                                             <IconButton>
                                                 <Badge>
                                                     <LanguageIcon fontSize="small" />
                                                 </Badge>
                                             </IconButton>
+                                            {changeLanguage}   {LanguageState}
+
                                         </MenuItem>
 
                                     </Select>
@@ -225,7 +230,8 @@ function ResponsiveDrawer(props) {
 
 
                         </Grid>
-                        {/* <Grid item>
+
+                        {role == 'admin' ? (<Grid item>
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="select-multiple-chip"> {t('languages')}</InputLabel>
                                 <Select sx={{ borderRadius: 2, color: 'black', borderColor: 'white', width: 100, paddingTop: '4px', marginRight: '8px' }}>
@@ -235,8 +241,7 @@ function ResponsiveDrawer(props) {
                                 </Select>
                             </FormControl>
 
-                        </Grid> */}
-
+                        </Grid>) : ('')}
                     </Grid>
                 </Toolbar>
             </AppBar>

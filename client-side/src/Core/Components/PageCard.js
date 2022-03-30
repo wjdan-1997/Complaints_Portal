@@ -8,8 +8,11 @@ import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
+import { useTranslation } from 'react-i18next';
 
 const PageCard = (props) => {
+    const [t] = useTranslation('common')
+
     const { loading = false, totalpending, totalrejected, toltalresolved } = props;
     return (
 
@@ -49,7 +52,7 @@ const PageCard = (props) => {
                                                     variant="h5"
                                                 >
 
-                                                    Pending Request
+                                                    {t('Pending_Request')}
                                                 </Typography>
                                             ) : (
                                                 <Skeleton animation="wave" height={10} width={150} style={{ marginBottom: 6 }} />
@@ -105,7 +108,7 @@ const PageCard = (props) => {
                                                     gutterBottom
                                                     variant="h5"
                                                 >
-                                                    Resolved Request
+                                                    {t('Resolved_Request')}
                                                 </Typography>
                                             ) : (
                                                 <Skeleton animation="wave" height={10} width={150} style={{ marginBottom: 6 }} />
@@ -161,7 +164,7 @@ const PageCard = (props) => {
                                                     gutterBottom
                                                     variant="h5"
                                                 >
-                                                    Rejected Request
+                                                    {t('Rejected_Request')}
                                                 </Typography>
                                             ) : (
                                                 <Skeleton animation="wave" height={10} width={150} style={{ marginBottom: 6 }} />
