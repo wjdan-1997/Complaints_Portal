@@ -8,6 +8,7 @@ import { TextField } from 'final-form-material-ui';
 import { getCurrentUser } from '../../../../Core/Components/useLocalStorage';
 import ChangePasswordApi from '../Api/ChangePassApi';
 import { changePasswordValidation } from '../../../Users/Utils/UserValidation';
+import { Helmet } from 'react-helmet';
 
 const ChangePassword = () => {
     const navigate = useNavigate();
@@ -38,8 +39,12 @@ const ChangePassword = () => {
     }
 
     return (
-
-        <Box
+        <>
+        
+        <Helmet>
+          <title>Change Password</title>
+        </Helmet>
+          <Box
             sx={{
                 py: 3
             }}
@@ -131,6 +136,9 @@ const ChangePassword = () => {
                 </Card>
             </Container>
         </Box>
+        </>
+
+      
 
 
     );

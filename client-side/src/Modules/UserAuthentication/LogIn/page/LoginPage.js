@@ -8,6 +8,7 @@ import UserLoginApi from "../Api/UserLoginApi";
 import { useNavigate } from "react-router-dom";
 import { setCurrentUser, setAuthToken } from '../../../../Core/Components/useLocalStorage';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
     const [t] = useTranslation('common')
@@ -45,121 +46,127 @@ const Login = () => {
         return msg
     }
     return (
-        <Box
-            sx={{
-                //backgroundColor: '#fafafa',
-                width: 'auto',
-                height: "auto",
-                backgroundSize: "cover"
-            }}
-        >
-            <Container
-                maxWidth="sm"
+        <>
+            <Helmet>
+                <title>Login</title>
+            </Helmet>
+            <Box
                 sx={{
-
-
-                    paddingRight: 3,
-                    paddingLeft: 3,
-
+                    //backgroundColor: '#fafafa',
+                    width: 'auto',
+                    height: "auto",
+                    backgroundSize: "cover"
                 }}
             >
-                <Box sx={{
-                    mt: '2%',
-                    backgroundColor: 'white',
-                    borderRadius: 5,
-                    paddingRight: 3,
-                    paddingLeft: 3,
-                    boxShadow: '5px 10px 18px #ecf1f5'
-                }}>
+                <Container
+                    maxWidth="sm"
+                    sx={{
 
-                    <Box sx={{ mb: 3, textAlign: 'center', paddingTop: '55px', margin: '0px' }}>
-                        <Typography variant="h4" gutterBottom component="div" align="center">
-                            Log in to your Complaint account
 
-                        </Typography>
-                        <Typography variant="p" gutterBottom component="div" align="center">
-                            Please enter your email and password:
-                        </Typography>
+                        paddingRight: 3,
+                        paddingLeft: 3,
 
-                    </Box>
-                    <CardContent sx={{ padding: "30px", paddingTop: '0' }}>
-                        {errMessage && (
-                            <Alert variant="outlined" severity="error">
-                                {errMessage}
-                            </Alert>
-                        )}
-                        {!isLoading ? (
-                            <>
-                                <Form
-                                    onSubmit={onSubmit}
-                                    validate={validate}
-                                    render={({ handleSubmit, submitting, pristine, values }) => (
-                                        <form onSubmit={handleSubmit}>
-                                            <Grid container spacing={3} mt={3}>
-                                                <Grid item md={12} xs={12} >
-                                                    <Field
-                                                        label={t("email")}
-                                                        name="email"
-                                                        component={TextField}
-                                                        type="text"
-                                                        fullWidth
-                                                    />
+                    }}
+                >
+                    <Box sx={{
+                        mt: '2%',
+                        backgroundColor: 'white',
+                        borderRadius: 5,
+                        paddingRight: 3,
+                        paddingLeft: 3,
+                        boxShadow: '5px 10px 18px #ecf1f5'
+                    }}>
+
+                        <Box sx={{ mb: 3, textAlign: 'center', paddingTop: '55px', margin: '0px' }}>
+                            <Typography variant="h4" gutterBottom component="div" align="center">
+                                Log in to your Complaint account
+
+                            </Typography>
+                            <Typography variant="p" gutterBottom component="div" align="center">
+                                Please enter your email and password:
+                            </Typography>
+
+                        </Box>
+                        <CardContent sx={{ padding: "30px", paddingTop: '0' }}>
+                            {errMessage && (
+                                <Alert variant="outlined" severity="error">
+                                    {errMessage}
+                                </Alert>
+                            )}
+                            {!isLoading ? (
+                                <>
+                                    <Form
+                                        onSubmit={onSubmit}
+                                        validate={validate}
+                                        render={({ handleSubmit, submitting, pristine, values }) => (
+                                            <form onSubmit={handleSubmit}>
+                                                <Grid container spacing={3} mt={3}>
+                                                    <Grid item md={12} xs={12} >
+                                                        <Field
+                                                            label={t("email")}
+                                                            name="email"
+                                                            component={TextField}
+                                                            type="text"
+                                                            fullWidth
+                                                        />
+
+                                                    </Grid>
+                                                    <Grid item md={12} xs={12} >
+                                                        <Field
+                                                            label={t("password")}
+                                                            name="password"
+                                                            component={TextField}
+                                                            type="password"
+                                                            fullWidth
+                                                        />
+                                                    </Grid>
+                                                </Grid>
+                                                <br />
+                                                <Grid item md={12} xs={12}>
+                                                    <Button
+                                                        disabled={submitting || pristine}
+                                                        variant="contained"
+                                                        type="submit"
+                                                        sx={{
+                                                            borderRadius: '5em',
+                                                            width: '100%',
+                                                            margin: '0 auto',
+                                                        }}
+                                                    >
+                                                        {t("login")}
+                                                    </Button>
 
                                                 </Grid>
-                                                <Grid item md={12} xs={12} >
-                                                    <Field
-                                                        label={t("password")}
-                                                        name="password"
-                                                        component={TextField}
-                                                        type="password"
-                                                        fullWidth
-                                                    />
+                                                <br />
+                                                <Grid item md={12} xs={12}>
+                                                    <Typography> {t('not_registered')}
+                                                        <Link color='secondary' underline='none' href="signup"> {t("create_Customer_Account")}</Link>
+                                                    </Typography>
                                                 </Grid>
-                                            </Grid>
-                                            <br />
-                                            <Grid item md={12} xs={12}>
-                                                <Button
-                                                    disabled={submitting || pristine}
-                                                    variant="contained"
-                                                    type="submit"
-                                                    sx={{
-                                                        borderRadius: '5em',
-                                                        width: '100%',
-                                                        margin: '0 auto',
-                                                    }}
-                                                >
-                                                    {t("login")}
-                                                </Button>
+                                                <pre>{JSON.stringify(values, 0, 2)}</pre>
+                                            </form>
+                                        )}
+                                    />
 
-                                            </Grid>
-                                            <br />
-                                            <Grid item md={12} xs={12}>
-                                                <Typography> {t('not_registered')}
-                                                    <Link color='secondary' underline='none' href="signup"> {t("create_Customer_Account")}</Link>
-                                                </Typography>
-                                            </Grid>
-                                            <pre>{JSON.stringify(values, 0, 2)}</pre>
-                                        </form>
-                                    )}
+                                </>
+                            ) : (
+                                <CircularProgress
+                                    size="15rem"
+                                    style={{
+                                        display: 'block',
+                                        marginLeft: 'auto',
+                                        marginRight: 'auto',
+                                        color: '#E2E8EB'
+                                    }}
                                 />
+                            )}
 
-                            </>
-                        ) : (
-                            <CircularProgress
-                                size="15rem"
-                                style={{
-                                    display: 'block',
-                                    marginLeft: 'auto',
-                                    marginRight: 'auto',
-                                    color: '#E2E8EB'
-                                }}
-                            />
-                        )}
+                        </CardContent>
+                    </Box>
+                </Container>
+            </Box>
+        </>
 
-                    </CardContent>
-                </Box>
-            </Container>
-        </Box>
 
 
 

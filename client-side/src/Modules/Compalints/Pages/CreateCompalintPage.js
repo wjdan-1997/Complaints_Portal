@@ -8,6 +8,7 @@ import CheckBoxField from '../../../Core/Components/CheckBox';
 import CreateCompalintApi from '../Api/CreateComplaintApi';
 import { ApiPutRequest } from '../../../Core/API/ApiRequest';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 
 const CreateCompalint = () => {
@@ -66,7 +67,11 @@ const CreateCompalint = () => {
     }
     console.log(location?.state?.editForm);
     return (
-        <Box
+        <>
+          <Helmet>
+          <title>Create CSomplaint</title>
+        </Helmet>
+         <Box
             sx={{
                 //  backgroundColor: '#fafafa',
                 width: '100%',
@@ -248,7 +253,9 @@ const CreateCompalint = () => {
                     </CardContent>
                 </Box>
             </Container>
-        </Box>
+        </Box>  
+         </>
+        
         
 
     );

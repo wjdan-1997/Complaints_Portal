@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import { ApiDeleteRequest, ApiPutRequest } from '../../../Core/API/ApiRequest';
 import { getComplaintInfo, getCurrentUser } from '../../../Core/Components/useLocalStorage';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 const Compalint = () => {
     const [t] = useTranslation('common')
@@ -72,7 +73,11 @@ const Compalint = () => {
     }
     console.log("location?.state?.complainType", complainType);
     return (
-        <Box
+        <>
+          <Helmet>
+          <title>View Complaint</title>
+        </Helmet>
+         <Box
             sx={{
                 backgroundColor: '#fafafa',
                 width: 'auto',
@@ -225,6 +230,8 @@ const Compalint = () => {
 
             </Container>
         </Box>
+        </>
+       
 
 
     );

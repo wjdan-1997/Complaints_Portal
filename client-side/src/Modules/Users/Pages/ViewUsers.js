@@ -30,6 +30,7 @@ import EditProfile from './EditProfile';
 import EditUser from './EditUser';
 import Notifications from '../../../Core/Components/Notifications.';
 import ConfirmDialog from '../../../Core/Components/ConfirmDialog';
+import { Helmet } from 'react-helmet';
 
 
 const useStyles = makeStyles(() => ({
@@ -143,6 +144,9 @@ const ViewUsers = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Users</title>
+            </Helmet>
             <PageHeader
                 title={t("user_management")}
                 subTitle={t("control_your_users")}
